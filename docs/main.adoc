@@ -1,0 +1,128 @@
+= Ghost Trick: Phantom Detective (NDS) ROM Hacking Guide
+fm'latghor
+:sectnums:
+:toc:
+:toclevels: 2
+:doctype: book
+:leveloffset: 1
+:leveloffset: 0
+
+[Preface]
+= Introduction
+This guide is solely focused on the Nintendo DS (NDS) version of Ghost Trick. For the iOS version, you will have to look elsewhere. This is not a step-by-step guide, the purpose of this guide is to inform others in how to manipulate or understand the contents of Ghost Trick for whatever reason.
+
+Though most compatibility is kept for use with other systems besides Linux distributions, this guide is mainly focused on Linux users.
+
+== Prerequisites
+To follow this guide, you will need to be relatively comfortable with the command line. You will also need a ROM/copy of Ghost Trick.
+
+=== Tools
+* https://github.com/devkitPro/ndstool[ndstool] - Tool for extracting and packaging the contents for NDS ROM.
+** You can use https://devkitpro.org/wiki/Getting_Started[this guide] to install ndstool and other software from https://devkitpro.org[devkitPro].
+* https://desmume.org/[DeSmuME] - NDS emulator and debugger.
+** Some Linux Distributions may have DeSmuME already available.
+* https://github.com/lepelog/nlzss11[nlzss11] - LZ compression/decompression tool.
+** Can be installed with Python's package manager, https://pypi.org/project/nlzss11/[pip].
+
+=== Obtaining a ROM
+If you don’t already have a ROM of Ghost Trick, there are multiple ways you can obtain one. If you are using a 3DS/2DS with https://github.com/LumaTeam/Luma3DS[Luma CFW], you can dump the ROM with GodMode9, which should already be installed.
+//
+//If you are using an original NDS/DSi, you can use
+
+= Packaging ROM Contents
+== Unpacking the Contents of the ROM With `ndstool`
+Firstly, you should make a new directory for this. (it can get messy) Then, to unpack the ROM with `ndstool`, use this command; where $rom is the name of the ROM you are unpacking:
+
+[source,sh]
+----
+ndstool -x $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+----
+
+Or if you want to automate that, you can use this script: footnote:[This script will only work on UNIX-like systems (macOS, Linux, BSD), with the exception of Windows Subsystem for Linux (WSL).]
+
+[source,sh]
+----
+#1/bin/dash
+echo ROM?
+read rom
+ndstool -x $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+----
+
+You may be wondering what all these files are. See the link:#_files[files] section.
+
+== Repacking the Contents of the ROM With `ndstool`
+Once you have unpacked the ROM and made your changes, to repack the ROM, use this command:
+
+[source,sh]
+----
+ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+----
+
+Or as a script: footnote:[This script will only work on UNIX-like systems (macOS, Linux, BSD), with the exception of Windows Subsystem for Linux (WSL).]
+[source.sh]
+----
+#!/bin/dash
+echo ROM?
+read rom
+ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+----
+
+= LZ Compression/Decompression
+== Decompressing xml.lz Files with nlzss
+
+[Glossary]
+= Files
+There are many files and directories you will come across after
+unpacking.
+
+[Glossary]
+== *.xml.lz
+"XML" refers to "Extensible Markup Language", a markup language used on the World Wide Web (WWW) for representing textual data – among other things. XML isn’t only used on the web, XML is also used in Microsoft’s `\*.docx` format and Adobe’s `*.pdf` format (in the form of https://en.wikipedia.org/wiki/XML_Data_Package[XDP] and https://en.wikipedia.org/wiki/XML_Data_Package[XFA]). You can read more on XML on its https://en.wikipedia.org/wiki/XML[Wikipedia page].
+
+LZ generally refers to files compressed with the Lempel-Ziv-Markov (LZMA) algorithm. Unfortunately these files are not what they seem.  They’re not compressed XML files – maybe they were at one point – nor are they LZMA files but here they are actually LZ77 compressed binary files. LZ77 is similar to LZMA in the sense that LZMA is a variation of LZ77 and LZ78.
+
+These files are only compressed so that the ROM may be smaller, but they are not required to be recompressed when repacking. If they are compressed, then on runtime the game will decompress them when need be.
+
+So really these files aren’t XML or LZMA files, but rather binaries compressed via the LZ77 compression algorithm.
+
+[Glossary]
+== *.mods
+These are https://en.wikipedia.org/wiki/Nintendo_European_Research_%26_Development#Mobiclip_video_codecs[Mobiclip] encoded audio/video files.
+// To modify them, see section...
+
+[Glossary]
+== *.sdat
+SDATs are sound data files.
+
+[Glossary]
+== *.sdat vs *.mods
+SDAT files usually contained loops, the soundtrack – things that will often times be used within the game – unlike Mobiclip files are cutscenes, loading screens; that type of stuff. For example, `telmove.mods` in the data folder is the audio/video that plays when you use the telephone in Ghost Trick, whereas `sound_data.sdat` will have the main theme that plays when you start the game, or at the beginning of the actual game when the Prologue’s music is queued – different formats used for different things is what I am getting at.
+
+[Glossary]
+== st*
+Each Chapter of Ghost Trick’s text data is stored in their respective directories. For what I mean, `st01` is chapter one, `st02` is chapter two, and so on. The way these files inside their directories are labeled looks like this:
+
+[source,sh]
+----
+                    Language Code
+                    ⌄⌄
+st01_game000_Expand.en.xml.lz
+^^^^                   ^^^^^^
+Chapter                File format
+----
+
+[Glossary]
+== Root
+In UNIX-like systems, "root"' means the beginning of a directory – just how "root" would normally be the start of something. In this case, the root of each chapter is designated in these files. Usually `st**_root.xml.lz` in each chapter directory.
+
+[Glossary]
+== chapter.xml.lz
+This file sources the root.xml of each chapter (among other things).
+
+The decompressed hexadecimal form shows this by:
+[source,sh]
+----
+* st01/st01_root .xml st14/st14_r oot.xml st06/st0 6_root.xml st02/ st02_root.xml st 04/st04_root.xml st03/st03_root. xml st09/st09_ro ot.xml st07/st07 _root.xml st05/s t05_root.xml st1 3/st13_root.xml GOTO START route .xml
+----
+
+If you were to remove these lines, this would remove it’s need to look at the chapter’s text files, or you could add the need to search more chapter files. This allows you to add your own translations, remove languages (in the case that you won’t use one). The game _will_ work without these lines as far as I know.
