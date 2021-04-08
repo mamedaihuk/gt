@@ -11,7 +11,9 @@ fm'latghor
 = Introduction
 This guide is solely focused on the Nintendo DS (NDS) version of Ghost Trick. For the iOS version, you will have to look elsewhere. This is not a step-by-step guide, the purpose of this guide is to inform others in how to manipulate or understand the contents of Ghost Trick for whatever reason.
 
-Though most compatibility is kept for use with other systems besides Linux distributions, this guide is mainly focused on Linux users.
+Though the actual tools will work on systems besides UNIX-likes, the instructions for this guide is meant for *NIX users; i.e. don't expect these instructions to work on other systems apart from UNIX-likes.
+
+// About the actual game: 3d animations rendered in 2d, cpac from Apollo Justice reused.
 
 == Prerequisites
 To follow this guide, you will need to be relatively comfortable with the command line. You will also need a ROM/copy of Ghost Trick.
@@ -19,30 +21,30 @@ To follow this guide, you will need to be relatively comfortable with the comman
 === Tools
 * https://github.com/devkitPro/ndstool[ndstool] - Tool for extracting and packaging the contents for NDS ROM.
 ** You can use https://devkitpro.org/wiki/Getting_Started[this guide] to install ndstool and other software from https://devkitpro.org[devkitPro].
-* https://desmume.org/[DeSmuME] - NDS emulator and debugger.
+* https://desmume.org[DeSmuME] - NDS emulator and debugger.
 ** Some Linux Distributions may have DeSmuME already available.
-* https://github.com/lepelog/nlzss11[nlzss11] - LZ compression/decompression tool.
-** Can be installed with Python's package manager, https://pypi.org/project/nlzss11/[pip].
+* https://github.com/magical/nlzss[nlzss] - LZ compression/decompression tool.
+** No formal installation provided. This is a collection of python scripts.
 
 === Obtaining a ROM
-If you don’t already have a ROM of Ghost Trick, there are multiple ways you can obtain one. If you are using a 3DS/2DS with https://github.com/LumaTeam/Luma3DS[Luma CFW], you can dump the ROM with GodMode9, which should already be installed.
-//
-//If you are using an original NDS/DSi, you can use
+If you don’t already have a ROM of Ghost Trick, there are multiple ways you can obtain one. If you are using a 3DS/2DS with https://github.com/LumaTeam/Luma3DS[Luma CFW], you can dump the ROM with GodMode9, which should already be installed. See https://www.cfwaifu.com/3ds-dump-cartridges[this guide] if you are at loss for what to do.
+
+If you are using a DSi, you would use GodMode9 as well. See https://dsi.cfw.guide/dumping-cartridges.html[this guide] if you are unsure of what to do. This requires you to have a DSi with GodMode9 installed.
+
+For an original NDS, see [this guide].
 
 = Packaging ROM Contents
 == Unpacking the Contents of the ROM With `ndstool`
 Firstly, you should make a new directory for this. (it can get messy) Then, to unpack the ROM with `ndstool`, use this command; where $rom is the name of the ROM you are unpacking:
-
 [source,sh]
 ----
-ndstool -x $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+$ ndstool -x $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
 ----
 
-Or if you want to automate that, you can use this script: footnote:[This script will only work on UNIX-like systems (macOS, Linux, BSD), with the exception of Windows Subsystem for Linux (WSL).]
-
+Or if you want to automate that, you can use this script:
 [source,sh]
 ----
-#1/bin/dash
+#!/bin/dash
 echo ROM?
 read rom
 ndstool -x $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
@@ -52,13 +54,12 @@ You may be wondering what all these files are. See the link:#_files[files] secti
 
 == Repacking the Contents of the ROM With `ndstool`
 Once you have unpacked the ROM and made your changes, to repack the ROM, use this command:
-
 [source,sh]
 ----
-ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+$ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
 ----
 
-Or as a script: footnote:[This script will only work on UNIX-like systems (macOS, Linux, BSD), with the exception of Windows Subsystem for Linux (WSL).]
+Or as a script:
 [source.sh]
 ----
 #!/bin/dash
@@ -69,9 +70,45 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 
 = LZ Compression/Decompression
 == Decompressing xml.lz Files with nlzss
+Make sure to either include the path to the script when invoking it, or place it somewhere in your path.
+[source,sh]
+----
+$ lzss3.py file.xml.lz > file.xml
+----
+
+If you would like to run this command for all files in the current directory, use this:
+[source,sh]
+----
+$ for file in *.xml.lz; do nlzss "$file" > "$(file%.*)" done
+----
+
+For ZSH:
+[source,sh]
+----
+% for file in *.xml.lz; do nlzss "$file" > "$(file)"; done); done
+----
+
+Though if you would like to do this for all the files (including those in subdirectories), run this command:
+[source,sh]
+----
+% for d in ./*/; do (for file in *.xml.lz; do nlzss "$file" > "$(file%.*)" done}"; done); done
+----
+
+For ZSH:
+[source,sh]
+----
+% for d in ./*/; do (for file in *.xml.lz; do nlzss "$file" > "${file:r}"; done); done
+----
+
+== Compressing xml.lz Files with nlzss
+This is purely optional, but it will save space.
+[source,sh]
+----
+$ compress.py file.xml.lz > file.xml
+----
 
 [Glossary]
-= Files
+= File Types
 There are many files and directories you will come across after
 unpacking.
 
@@ -79,7 +116,7 @@ unpacking.
 == *.xml.lz
 "XML" refers to "Extensible Markup Language", a markup language used on the World Wide Web (WWW) for representing textual data – among other things. XML isn’t only used on the web, XML is also used in Microsoft’s `\*.docx` format and Adobe’s `*.pdf` format (in the form of https://en.wikipedia.org/wiki/XML_Data_Package[XDP] and https://en.wikipedia.org/wiki/XML_Data_Package[XFA]). You can read more on XML on its https://en.wikipedia.org/wiki/XML[Wikipedia page].
 
-LZ generally refers to files compressed with the Lempel-Ziv-Markov (LZMA) algorithm. Unfortunately these files are not what they seem.  They’re not compressed XML files – maybe they were at one point – nor are they LZMA files but here they are actually LZ77 compressed binary files. LZ77 is similar to LZMA in the sense that LZMA is a variation of LZ77 and LZ78.
+LZ generally refers to files compressed with the https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski[Lempel–Ziv–Storer–Szymanski] (LZSS) algorithm. Unfortunately these files are not what they seem.  They’re not compressed XML files – maybe they were at one point -- here they are actually Nintendo's variant of LZSS (NLZSS) compressed binary files.
 
 These files are only compressed so that the ROM may be smaller, but they are not required to be recompressed when repacking. If they are compressed, then on runtime the game will decompress them when need be.
 
@@ -113,16 +150,28 @@ Chapter                File format
 
 [Glossary]
 == Root
-In UNIX-like systems, "root"' means the beginning of a directory – just how "root" would normally be the start of something. In this case, the root of each chapter is designated in these files. Usually `st**_root.xml.lz` in each chapter directory.
+In UNIX-like systems, "root" means the beginning of a directory – just how "root" would normally be the start of something. In this case, the root of each chapter is designated in these files. Usually `st**_root.xml.lz` in each chapter directory.
 
 [Glossary]
 == chapter.xml.lz
 This file sources the root.xml of each chapter (among other things).
 
 The decompressed hexadecimal form shows this by:
-[source,sh]
+[source,ascii]
 ----
-* st01/st01_root .xml st14/st14_r oot.xml st06/st0 6_root.xml st02/ st02_root.xml st 04/st04_root.xml st03/st03_root. xml st09/st09_ro ot.xml st07/st07 _root.xml st05/s t05_root.xml st1 3/st13_root.xml GOTO START route .xml
+*
+st01/st01_root.xml
+st14/st14_root.xml
+st06/st06_root.xml
+st02/st02_root.xml
+st04/st04_root.xml
+st03/st03_root.xml
+st09/st09_root.xml
+st07/st07_root.xml
+st05/st05_root.xml
+st13/st13_root.xml
+GOTO START
+route.xml
 ----
 
-If you were to remove these lines, this would remove it’s need to look at the chapter’s text files, or you could add the need to search more chapter files. This allows you to add your own translations, remove languages (in the case that you won’t use one). The game _will_ work without these lines as far as I know.
+// If you were to remove these lines, this would remove it’s need to look at the chapter’s text files, or you could add the need to search more chapter files. This allows you to add your own translations, remove languages (in the case that you won’t use one). The game _will_ work without these lines as far as I know.
