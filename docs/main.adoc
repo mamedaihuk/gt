@@ -30,8 +30,8 @@ To follow this guide, you will need to be relatively comfortable with the comman
 If you don’t already have a ROM of Ghost Trick, there are multiple ways you can obtain one. If you are using a 3DS/2DS with https://github.com/LumaTeam/Luma3DS[Luma CFW], you can dump the ROM with GodMode9, which should already be installed. See https://www.cfwaifu.com/3ds-dump-cartridges[this guide] if you are at loss for what to do.
 
 If you are using a DSi, you would use GodMode9 as well. See https://dsi.cfw.guide/dumping-cartridges.html[this guide] if you are unsure of what to do. This requires you to have a DSi with GodMode9 installed.
-
-//For an original NDS, see [this guide].
+//
+// For an original NDS, see [this guide].
 
 = Packaging ROM Contents
 == Unpacking the Contents of the ROM With `ndstool`
