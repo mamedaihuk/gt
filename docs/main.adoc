@@ -31,7 +31,7 @@ If you don’t already have a ROM of Ghost Trick, there are multiple ways you ca
 
 If you are using a DSi, you would use GodMode9 as well. See https://dsi.cfw.guide/dumping-cartridges.html[this guide] if you are unsure of what to do. This requires you to have a DSi with GodMode9 installed.
 
-For an original NDS, see [this guide].
+//For an original NDS, see [this guide].
 
 = Packaging ROM Contents
 == Unpacking the Contents of the ROM With `ndstool`
