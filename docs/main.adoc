@@ -73,25 +73,25 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 Make sure to either include the path to the script when invoking it, or place it somewhere in your path.
 [source,sh]
 ----
-$ lzss3.py file.xml.lz > file.xml
+$ nlzss file.xml.lz > file.xml
 ----
 
 If you would like to run this command for all files in the current directory, use this:
 [source,sh]
 ----
-$ for file in *.xml.lz; do nlzss "$file" > "$(file%.*)" done
+$ for file in *.xml.lz; do nlzss "$file" > "${file%.*}"; done
 ----
 
 For ZSH:
 [source,sh]
 ----
-% for file in *.xml.lz; do nlzss "$file" > "$(file)"; done); done
+% for file in *.xml.lz; do nlzss "$file" > "${file:r}"; done
 ----
 
 Though if you would like to do this for all the files (including those in subdirectories), run this command:
 [source,sh]
 ----
-% for d in ./*/; do (for file in *.xml.lz; do nlzss "$file" > "$(file%.*)" done}"; done); done
+$ for d in ./*/; do (for file in *.xml.lz; do nlzss "$file" > "${file%.*}"; done); done
 ----
 
 For ZSH:
@@ -101,7 +101,6 @@ For ZSH:
 ----
 
 == Compressing xml.lz Files with nlzss
-This is purely optional, but it will save space.
 [source,sh]
 ----
 $ compress.py file.xml.lz > file.xml
