@@ -603,7 +603,7 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">$ lzss3.py file.xml.lz &gt; file.xml</code></pre>
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ nlzss file.xml.lz &gt; file.xml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -611,7 +611,7 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">$ for file in *.xml.lz; do nlzss "$file" &gt; "$(file%.*)" done</code></pre>
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ for file in *.xml.lz; do nlzss "$file" &gt; "${file%.*}"; done</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -619,7 +619,7 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">% for file in *.xml.lz; do nlzss "$file" &gt; "$(file)"; done); done</code></pre>
+<pre class="highlight"><code class="language-sh" data-lang="sh">% for file in *.xml.lz; do nlzss "$file" &gt; "${file:r}"; done</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -627,7 +627,7 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-sh" data-lang="sh">% for d in ./*/; do (for file in *.xml.lz; do nlzss "$file" &gt; "$(file%.*)" done}"; done); done</code></pre>
+<pre class="highlight"><code class="language-sh" data-lang="sh">$ for d in ./*/; do (for file in *.xml.lz; do nlzss "$file" &gt; "${file%.*}"; done); done</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -643,9 +643,6 @@ ndstool -c $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -
 <div class="sect1">
 <h2 id="_compressing_xml_lz_files_with_nlzss">5. Compressing xml.lz Files with nlzss</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>This is purely optional, but it will save space.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-sh" data-lang="sh">$ compress.py file.xml.lz &gt; file.xml</code></pre>
@@ -732,9 +729,6 @@ Chapter                File format</code></pre>
 <h2 id="_chapter_xml_lz">chapter.xml.lz</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This file sources the root.xml of each chapter (among other things).</p>
-</div>
-<div class="paragraph">
 <p>The decompressed hexadecimal form shows this by:</p>
 </div>
 <div class="listingblock">
@@ -759,7 +753,7 @@ route.xml</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-08 20:58:31 -0400
+Last updated 2021-04-22 12:17:24 -0400
 </div>
 </div>
 </body>

@@ -153,7 +153,7 @@ In UNIX-like systems, "root" means the beginning of a directory – just how "ro
 
 [Glossary]
 == chapter.xml.lz
-This file sources the root.xml of each chapter (among other things).
+//This file sources the root.xml of each chapter (among other things).
 
 The decompressed hexadecimal form shows this by:
 [source,ascii]
