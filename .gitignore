@@ -1,1 +1,4 @@
-gt.1.gz
+*.gz
+dump
+assets
+*.nds

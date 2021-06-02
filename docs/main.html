@@ -469,9 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_xml_lz">*.xml.lz</a></li>
 <li><a href="#_mods">*.mods</a></li>
 <li><a href="#_sdat">*.sdat</a></li>
-<li><a href="#_sdat_vs_mods">*.sdat vs *.mods</a></li>
 <li><a href="#_st">st*</a></li>
-<li><a href="#_root">Root</a></li>
 <li><a href="#_chapter_xml_lz">chapter.xml.lz</a></li>
 </ul>
 </div>
@@ -668,12 +666,6 @@ unpacking.</p>
 <div class="paragraph">
 <p>LZ generally refers to files compressed with the <a href="https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski">Lempel–Ziv–Storer–Szymanski</a> (LZSS) algorithm. Unfortunately these files are not what they seem.  They’re not compressed XML files – maybe they were at one point&#8201;&#8212;&#8201;here they are actually Nintendo&#8217;s variant of LZSS (NLZSS) compressed binary files.</p>
 </div>
-<div class="paragraph">
-<p>These files are only compressed so that the ROM may be smaller, but they are not required to be recompressed when repacking. If they are compressed, then on runtime the game will decompress them when need be.</p>
-</div>
-<div class="paragraph">
-<p>So really these files aren’t XML or LZMA files, but rather binaries compressed via the LZ77 compression algorithm.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -688,15 +680,7 @@ unpacking.</p>
 <h2 id="_sdat">*.sdat</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>SDATs are sound data files.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sdat_vs_mods">*.sdat vs *.mods</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>SDAT files usually contained loops, the soundtrack – things that will often times be used within the game – unlike Mobiclip files are cutscenes, loading screens; that type of stuff. For example, <code>telmove.mods</code> in the data folder is the audio/video that plays when you use the telephone in Ghost Trick, whereas <code>sound_data.sdat</code> will have the main theme that plays when you start the game, or at the beginning of the actual game when the Prologue’s music is queued – different formats used for different things is what I am getting at.</p>
+<p>SDATs are sound data files. SDAT is a common data format for NDS games.</p>
 </div>
 </div>
 </div>
@@ -714,14 +698,6 @@ st01_game000_Expand.en.xml.lz
 ^^^^                   ^^^^^^
 Chapter                File format</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_root">Root</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In UNIX-like systems, "root" means the beginning of a directory – just how "root" would normally be the start of something. In this case, the root of each chapter is designated in these files. Usually <code>st**_root.xml.lz</code> in each chapter directory.</p>
 </div>
 </div>
 </div>
@@ -753,7 +729,7 @@ route.xml</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-22 12:17:24 -0400
+Last updated 2021-05-01 21:30:13 -0400
 </div>
 </div>
 </body>
