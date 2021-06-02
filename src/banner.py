@@ -66,7 +66,7 @@ for lang in langs:
 crcbin = updcrc(0xFFFF,binimg+txt)
 
 
-banner = open("banner.bin","wb")
+banner = open("./build/banner.bin","wb")
 
 banner.write("\x01\x00"+chr(crcbin&0xFF)+chr(crcbin>>8)+("\x00"*28)+binimg+txt)
-print("'banner.bin' was successfully written to.")
+print("'./build/banner.bin' was successfully written to.")
