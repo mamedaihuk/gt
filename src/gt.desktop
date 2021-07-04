@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=0.1
+Name=Ghost Trick: Phantom Detective
+GenericName=Adventure game
+Comment=An adventure game
+Path=/usr/local/bin/gt
+Exec=gt
+Icon=gt
+Terminal=false
+Categories=Game;AdventureGame;PuzzleGame;
