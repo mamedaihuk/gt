@@ -50,10 +50,6 @@ langs = ["Japanese","English","French","German","Italian","Spanish"]
 txt = ""
 binimg = ""
 
-print("""Enter the name of the file of the icon
-(Image should be 32x32) 
-(It should be in this folder)
-""")
 imgname = input("Image Name: ")
 im = Image.open(imgname).convert("P")
 #pal = im.palette.tostring()#PIL is fail
@@ -68,10 +64,6 @@ for i in range(0,16):
 	color = 0xFFFF if not i else makeColor(pal[i*3],pal[i*3+1],pal[i*3+2])
 	binimg += chr(color&0xFF)+chr(color>>8)
 
-print("""
-Enter Titles to be used by ROM 
-(type '\\n' for a line break)
-""")
 for lang in langs:
 	title = input("%s Title: "%lang).decode("utf-8").replace("\\n","\n").ljust(128,"\x00")
 	txt += title.encode('utf-16')[2:]
@@ -81,8 +73,4 @@ crcbin = updcrc(0xFFFF,binimg+txt)
 banner = open("banner.bin","wb")
 
 banner.write("\x01\x00"+chr(crcbin&0xFF)+chr(crcbin>>8)+("\x00"*28)+binimg+txt)
-print("""'banner.bin' was successfully written to.
-Press enter to quit the program.
-""")
-input("")
-
+print("'banner.bin' was successfully written to.")
