@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from PIL import Image
-"""
-Created by Alpha [http://projectpokemon.org | http://pokesplash.net]
-"""
+
+# Created by Alpha [http://projectpokemon.org | http://pokesplash.net]
+
 crc16tab = [
 	0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241,
 	0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1, 0xC481, 0x0440,
@@ -44,15 +44,13 @@ def updcrc(crc, d):
 
 def makeColor(r,g,b,a=0):
 	m = ((r>>3)<<0)|((g>>3)<<5)|((b>>3)<<10)|(a<<15)
-	#print "%x"%m,r,g,b
 	return m
 langs = ["Japanese","English","French","German","Italian","Spanish"]
 txt = ""
 binimg = ""
 
-imgname = input("Image Name: ")
+imgname = "banner.bmp"
 im = Image.open(imgname).convert("P")
-#pal = im.palette.tostring()#PIL is fail
 pal = im.getpalette()
 data = im.load()
 for i in range(0,4):
