@@ -13,8 +13,6 @@ This guide is solely focused on the Nintendo DS (NDS) version of Ghost Trick. Fo
 
 Though the actual tools will work on systems besides UNIX-likes, the instructions for this guide is meant for *NIX users; i.e. don't expect these instructions to work on other systems apart from UNIX-likes.
 
-// About the actual game: 3d animations rendered in 2d, cpac from Apollo Justice reused.
-
 == Prerequisites
 To follow this guide, you will need to be relatively comfortable with the command line. You will also need a ROM/copy of Ghost Trick.
 
@@ -38,7 +36,7 @@ If you are using a DSi, you would use GodMode9 as well. See https://dsi.cfw.guid
 Firstly, you should make a new directory for this. (it can get messy) Then, to unpack the ROM with `ndstool`, use this command; where $rom is the name of the ROM you are unpacking:
 [source,sh]
 ----
-$ ndstool -x $rom -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
+$ ndstool -x $ROM -9 arm9.bin -9i arm9i.bin -7 arm7.bin -7i arm7i.bin -y9 y9.bin -y7 y7.bin -d data -y overlay -t banner.bin -h header.bin
 ----
 
 Or if you want to automate that, you can use this script:
@@ -110,12 +108,14 @@ $ compress.py file.xml.lz > file.xml
 = File Types
 There are many files and directories you will come across after
 unpacking.
-
+////
 [Glossary]
 == *.xml.lz
 "XML" refers to "Extensible Markup Language", a markup language used on the World Wide Web (WWW) for representing textual data – among other things. XML isn’t only used on the web, XML is also used in Microsoft’s `\*.docx` format and Adobe’s `*.pdf` format (in the form of https://en.wikipedia.org/wiki/XML_Data_Package[XDP] and https://en.wikipedia.org/wiki/XML_Data_Package[XFA]). You can read more on XML on its https://en.wikipedia.org/wiki/XML[Wikipedia page].
-
-LZ generally refers to files compressed with the https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski[Lempel–Ziv–Storer–Szymanski] (LZSS) algorithm. Unfortunately these files are not what they seem.  They’re not compressed XML files – maybe they were at one point -- here they are actually Nintendo's variant of LZSS (NLZSS) compressed binary files.
+////
+[Glossary]
+== *.lz
+LZ generally refers to files compressed with the https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski[Lempel–Ziv–Storer–Szymanski] (LZSS) algorithm, though these are actually Nintendo's variant of LZSS (NLZSS) compressed binary files.
 
 [Glossary]
 == *.mods
@@ -125,45 +125,7 @@ These are https://en.wikipedia.org/wiki/Nintendo_European_Research_%26_Developme
 [Glossary]
 == *.sdat
 SDATs are sound data files. SDAT is a common data format for NDS games.
-
-[Glossary]
-== st*
-Each Chapter of Ghost Trick’s text data is stored in their respective directories. For what I mean, `st01` is chapter one, `st02` is chapter two, and so on. The way these files inside their directories are labeled looks like this:
-
-[source,sh]
-----
-                    Language Code
-                    ⌄⌄
-st01_game000_Expand.en.xml.lz
-^^^^                   ^^^^^^
-Chapter                File format
-----
 ////
 [Glossary]
-== Root
-In UNIX-like systems, "root" means the beginning of a directory – just how "root" would normally be the start of something. In this case, the root of each chapter is designated in these files. Usually `st**_root.xml.lz` in each chapter directory.
+== st##/
 ////
-
-[Glossary]
-== chapter.xml.lz
-//This file sources the root.xml of each chapter (among other things).
-
-The decompressed hexadecimal form shows this by:
-[source,ascii]
-----
-*
-st01/st01_root.xml
-st14/st14_root.xml
-st06/st06_root.xml
-st02/st02_root.xml
-st04/st04_root.xml
-st03/st03_root.xml
-st09/st09_root.xml
-st07/st07_root.xml
-st05/st05_root.xml
-st13/st13_root.xml
-GOTO START
-route.xml
-----
-
-// If you were to remove these lines, this would remove it’s need to look at the chapter’s text files, or you could add the need to search more chapter files. This allows you to add your own translations, remove languages (in the case that you won’t use one). The game _will_ work without these lines as far as I know.
