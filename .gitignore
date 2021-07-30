@@ -1,2 +1,6 @@
+# ROM contents
 *.nds
 assets
+
+# virtualenv
+venv
