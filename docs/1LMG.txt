@@ -1,0 +1,11 @@
+--2021-09-05 18:04:49--  https://raw.githubusercontent.com/CrazyMLC/ghost-treader/master/notes.txt
+Selvitetään osoitetta raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.109.133, 185.199.110.133, ...
+Yhdistetään palvelimeen raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... yhdistetty.
+HTTP-pyyntö lähetetty, odotetaan vastausta... 200 OK
+Pituus: 1418 (1,4K) [text/plain]
+Tallennetaan kohteeseen: ”notes.txt”
+
+     0K .                                                     100% 48,2M=0s
+
+2021-09-05 18:04:49 (48,2 MB/s) - ”notes.txt” tallennettu [1418/1418]
+

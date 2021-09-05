@@ -1,0 +1,209 @@
+This document contains a list of hex codes
+that act as master pointers to the sprites in
+the Ghost Trick ROM. I did not copy down all
+of the memory addresses, only the first in
+each category. The others can easily be found
+by using a program like CrystalTile2 and using
+ctrl+F/ctrl+R to find/replace them as desired.
+
+If any one of these codes is overwritten with
+another, every single instance of the
+corresponding sprite in the game will be
+replaced. Changing only some instances of a
+given sprite, but not others, will require
+other means.
+
+All talk sprite source data is in cpac_3d.bin.
+
+       ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+                 CONTENTS:
+
+           I. Full Talk Sprites
+           II. Mini Spritesheets
+
+       ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+       ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+             FULL TALK SPRITES
+
+       ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+The first memory address for talk sprites is
+04ED4298 (Sissel's default/neutral smirk).
+
+Sissel/Yomiel:
+9C4003007C190080 - neutral smirk
+185A030044190080 - neutral frown/serious
+5C730300E4180080 - hand on chin/thinking
+408C0300F8180080 - concerned/shocked/sweating
+38A50300501A0080 - angular/comedic shock
+18D90300BC090080 - ghost with sunglasses
+D4E20300D81B0080 - shrug with one palm out
+ACFE0300CC190080 - mouth agape/slight surprise
+7818040098180080 - flat line lips, melancholy
+103104009C180080 - angry/emotional yelling
+88BF030090190080 - evil smirk (Yomiel only)
+
+Cat:
+AC49040054100080
+
+Lynne:
+005A040040190080 - default
+4073040034180080 - smiling
+748B040020180080 - concerned/sweating
+94A30400501B0080 - sad
+E4BE0400A8190080 - yelling
+8CD80400581A0080 - thinking
+E4F20400381C0080 - yelling with fist clenched
+1C0F0500781B0080 - smiling satisfied/sassy
+942a050080180080 - determined frown
+1443050088180080 - slight surprised ":o"
+9C5B05000C1C0080 - losing it
+A877050004190080 - concerned, hands over mouth
+AC900500E01B0080 - sad, hands over chest
+
+Young Lynne:
+8CAC050018190080 - crying
+A4C5050078170080 - crying*
+1CDD050054160080 - holding kitten
+70F3050028170080 - crying*
+
+* did not determine whether slightly different
+sprite(s) or redundant.
+
+Camilla:
+980A060048140080 - default
+E01E0600B8150080 - hand on cheek
+9834060094140080 - happy blushing
+2C49060084140080 - possessed, shadowed eyes
+B05D060000180080 - yelling/pleading
+B0750600B8160080 - tearing up, hands on chest
+688C0600C4160080 - hands on chest, no tears
+
+Cabanella:
+2CA30600381B0080 - default
+64BE06001C1C0080 - huge open mouth smile
+80DA0600D41A0080 - sweating, upset, angry
+54F506001C1B0080 - serious, looking down
+70100700D81A0080 - yelling
+482B0700A41A0080 - serious, looking down*
+
+* did not determine whether slightly different
+sprite or redundant.
+
+Jowd:
+
+Note: Jowd sprites have 3 outfit variations.
+A = Artist (pink shirt)
+F = Flashback (green jacket over suit)
+D = Detective (green jacket over prison garb)
+
+EC450700BC140080 - stoic (A)
+A85A07007C150080 - slightly angry (A)
+24700700B8150080 - big laugh (A)
+DC850700BC140080 - neutral smile (A)
+989A070090140080 - angry big yell (A)
+28AF07004C1A0080 - stoic (F)
+74C90700A01A0080 - slightly angry (F)
+14E4070060180080 - stoic (D)
+74FC0700A8190080 - slightly angry (D)
+1C16080028140080 - sassy smile (A)
+442A0800E8140080 - eyes closed, regretful (A)
+2C3F0800441A0080 - neutral smile (F)
+7059080098180080 - neutral smile (D)
+087208005C190080 - big laugh (F)
+648B080060180080 - angry big yell (F)
+CFA3080084190080 - sassy smile (F)
+48BD080080170080 - big laugh (D)
+C8D4080088170080 - angry big yell (D)
+50EC080010170080 - sassy smile (D)
+
+Ray:
+60030900840E0080 - lamp off
+E4110900880E0080 - lamp on
+
+Blue bad guys:
+6C20090000140080 - hitman, no glasses
+6C340900BC170080 - fancy mastermind
+284C0900D0150080 - robot
+F8610900EC160080 - submarine pilot
+E478090028140080 - hitman with glasses
+
+Missile:
+0C8D0900B4100080 
+
+Remaining sprites:
+C09D090058160080 - smut author
+18B40900DC1C0080 - smut author losing it
+F4D009006C1E0080 - amelie petulant
+60EF0900E01D0080 - amelie happy
+400D0A00FC1C0080 - amelie happy*
+3C2A0A00F81E0080 - justice minister
+34490A00C41E0080 - justice minister losing it
+F8670A00481E0080 - justice minister happy
+40860A0068090080 - generic ghost
+A88F0A0070180080 - ministry guard
+18A80A00401D0080 - hippie guy
+58C50A00C81A0080 - hippie guy starry-eyed
+20E00A008C1D0080 - blue doctor
+ACFD0A00701B0080 - pigeon doctor
+1C190B0070170080 - hat detective
+8C300B0080130080 - old missile
+0C440B0034150080 - blue detective
+40590B00F8150080 - green detective
+386f0b0060150080 - policeman
+98840B0090160080 - policeman dejected
+289B0B00B8150080 - policeman 2*
+E0B00B00FC180080 - prison guard
+DCC90B0074170080 - prison guard 2
+50E10B00F4180080 - prison guard, goggles/vest
+44FA0B00641B0080 - rocker prisoner
+A8150C00F41A0080 - machine Yomiel
+9C300C006C160080 - curry-loving prisoner
+08470C00A0190080 - dead mom
+A8600C00E8190080 - dead mom smiling
+907A0C0054090080 - dead mom silhouette
+9834060094140080 - head honcho police chief
+00980C0090180080 - chef
+90B00C00D81C0080 - waitress
+68CD0C00F0170080 - prison guard 3*
+58E50C00AC110080 - bartender
+04F70C0034150080 - blue simp
+380C0D00181E0080 - blue dominatrix lady
+
+* did not determine whether slightly different
+sprite(s) or redundant.
+
+       ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+              MINI SPRITESHEETS
+
+       ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+The first memory address for these mini talk
+sprites begins at 04ED45E8. These are used for
+the thought bubbles that appear during
+Sissel's internal monologue and 4-minutes-to-
+death dialogue between characters.
+
+Replacing a full-size sprite with one of these
+codes pulls up what appears to be a sheet with
+multiple rather than just one sprite, but in
+the game only one expression per character is
+used. Have not determined if other expressions
+are included but unused. Resolution is too low
+to tell with certainty this way.
+
+502A0D00E4020080 - Sissel/Yomiel
+342D0D0064020080 - Cat
+982F0D00B0030080 - Lynne
+48330D0044030080 - Jowd
+8C360D0070020080 - Lamp
+FC380D0028030080 - Missile
+243C0D009C040080 - Minister
+C0400D00C4030080 - Hippie
+84440D0044030080 - Cabanella
+C8470D00F8030080 - Bird scientist
+C04B0D0078020080 - Sunglasses ghost

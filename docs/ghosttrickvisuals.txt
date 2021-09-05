@@ -1,0 +1,200 @@
+This document lists my findings with respect to the
+location and format of visual data in the Ghost Trick
+ROM. It does not include exhaustive directories of any
+assets, only general information and some examples.
+
+           ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+                      CONTENTS
+
+           ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+           I. Backgrounds
+           II. Talk Sprites
+             A) master palettes
+             B) sprite data
+             C) pointers in game dialogue
+
+           ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+                  I. BACKGROUNDS
+
+           ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+Background assets can be viewed using a tile editor
+(for example, CrystalTile2) with the GBA 8bpp tile
+form in cpac_2d.bin. However, the individual files are
+not recognized and the images are somewhat scrambled.
+
+The first step to restoring the proper tile order is
+determining the proper matrix width. This varies
+significantly across the board and is often vastly
+larger than the width of the image. There will be an
+example below for an image of width 65 tiles that is
+only discernible at a matrix width of 208 tiles.
+
+My workflow to find these was to set CrystalTile2 to
+dynamically change matrix width to match window width,
+then resize the windows until visual patterns emerge.
+
+Once the matrix width has been determined, the steps
+to re-order tiles are as follows:
+
+1. Start at the top left tile of the visible image.
+   Keep the first 2 tiles, then omit the next 2, then
+   keep the following 2, omit the next 2, etc.. So for
+   tiles 1-8, you will keep 1, 2, 5, and 6; while 3,
+   4, 7, and 8 will be omitted.
+2. Fill the next line with the skipped tiles. E.g.
+   tiles 3, 4, 7, and 8, etc.
+3. Repeat this process for every line of the image.
+   The resulting transformation will be half as wide
+   and twice as tall as the original and should be
+   visually recognizable.
+
+This implies that once the original tile order is
+known, the tiles can be edited as desired to make
+alterations to the image.
+
+I have not determined where the palette information
+for these tiles is defined.
+
+I am including an example below with links to images
+as additional demonstration, if the above is unclear.
+
+Example: the first brown pixel here is located at
+memory address 4E2D600. Viewed at matrix width of 208
+tiles, the following is visible (omitting excess and
+cropped only to show the relevant image):
+
+https://64.media.tumblr.com/dd232b9d8cbbe3e0601dbba235b57103/83014adb4e5435ec-e4/s500x750/cbf324f977b679b5e0151155c7749e0bb872ca64.png
+
+There are clear vertical cross-sections in the image.
+I manually cut them out into two images, shown here:
+
+https://64.media.tumblr.com/bf5ad7d7c6f1ec751c8b9ffbc4e0b483/83014adb4e5435ec-e1/s500x750/f6d0945f522649866d80295bc0c8fc54b37cb774.png
+
+https://64.media.tumblr.com/1a378a5b4aa244f5e6c820612d33cb09/83014adb4e5435ec-d0/s500x750/013508108bcde00bf12558268d9840ced5537c40.png
+
+There are now clear horizontal cross sections. I cut
+across them and spliced the image back together:
+
+https://64.media.tumblr.com/dd0dcf9f08b1f4a239b5ef30c81b72c2/83014adb4e5435ec-c5/s250x400/1794c75a4fad5ac316f7fc0167fdcdb4a5101e53.png
+
+Resulting in the original image (palette information
+incorrect, but image data correct).
+
+Here is a reference for the complete "unscrambled"
+asset:
+
+https://64.media.tumblr.com/7cd7fe507c6e16ceadcfcc1a17c60a33/83014adb4e5435ec-b8/s400x600/7e8feb716c7934365bffaed0fea48a430bc6048c.png
+
+And a visual breakdown of the transformation:
+
+https://64.media.tumblr.com/a863a8086b49347394c961ec911ecaa0/83014adb4e5435ec-06/s500x750/8b926b90c09133526b527a06740938e624eb75c1.png
+
+            ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+                  II. TALK SPRITES
+
+            ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+                 A) Master Palettes
+
+There is a master palette pointing to the various talk
+sprites in the game in cpac_3d.bin, beginning at
+memory address 04ED4298. The pointers are of the
+following format:
+
+## ## ## 00 ## ## 00 80
+
+For example, Sissel's neutral smirk at memory address
+04ED4298 is defined by:
+
+9C4003007C190080
+
+If the hex code at that memory address is replaced
+with the pointer for a different talk sprite, then
+every single instance of that talk sprite in the game
+will be replaced.
+
+For example, if it is replaced with 005A040040190080,
+Lynne's default face will appear instead.
+
+I intend to publish a list of hex code pointers for
+all of the game's talk sprites separately.
+
+                    B) Sprite Data
+
+The data for the sprites themselves is more
+complicated and I haven't managed to properly extract
+any. I have however determined that the data for
+Sissel's hand-on-chin "thinking" sprite is stored in
+the following block of memory: 04F0D340-04F0EC80.
+
+04F0D340-04F0D3BF: If this data is corrupted the
+sprite does not load at all, this is likely file/
+format information or some sort of pointer
+
+04F0D3C0-04F0EC3F: If this data is corrupted the
+sprite becomes visually corrupted, this is likely the
+data directly corresponding to the pixels of the
+sprite
+
+04F0EC40-04F0EC7F: If this data is corrupted the
+sprite appears normal but the palette is off, this is
+likely palette or color information
+
+Experimentation with this particular sprite may help
+determine the format(s) so other sprites can be
+potentially exported, modified, replaced, or added by
+future modders. The above ranges are approximate from
+testing blocks of memory at a time and may need to be
+refined.
+
+              C) Pointers in Game Dialogue
+
+Talk sprites are indicated per line of dialogue, per
+localization. This means to make changes for English,
+the .en.xml files must be edited.
+
+Note that the .en.xml files are initially compressed,
+and must first be decompressed using BatchLZ77 in
+order to find the following codes and make changes.
+
+Talk sprites are indicated in the following formats.
+
+Full Talk Sprites: 
+08 FF ## 00
+19 FF ## 00
+
+Each sprite has two codes associated with it, one
+causing it to appear on the left, the other for the
+right.
+
+Non-exhaustive list of some of Sissel's sprite codes:
+
+27 - default smirk (left)
+28 - default smirk (right)
+29 - default neutral/frown (left)
+2a - default neutral/frown (right)
+2b - thinking hand on chin (left)
+2c - thinking hand on chin (right)
+2d - sweating (left)
+2e - sweating (right)
+
+To change the associated talk sprite for a particular
+line of dialogue, find+replace the above codes.
+
+Example: 08FF2700 or 19FF2700 indicate Sissel's
+default smirk sprite appearing on the left side.
+
+Mini Talk Sprites:
+1B FF ## 00
+
+In this case there is exactly 1 code per character who
+has a mini talk sprite. The protagonist's is 01 (so
+full indicator is 1BFF0100).
+
+I intend to publish a list of all sprite codes
+separately.

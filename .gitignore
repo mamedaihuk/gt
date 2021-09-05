@@ -1,6 +1,8 @@
-# ROM contents
+# ROM
 *.nds
-assets
+assets/
+build/
+data/
 
-# virtualenv
-venv
+# Python
+__py_cache__

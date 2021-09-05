@@ -1,8 +1,0 @@
-== How to know if a file is compressed with LZ
-- Lack of repetition
-- File extension
-
-== How to know if a file compressed with LZ uses 10h or 11h
-- Lack of repetition
-- File extension
-- The first character(s) in the hex is either 10 or 11.
