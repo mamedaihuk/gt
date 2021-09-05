@@ -4,9 +4,10 @@ modifiable.
 
 ## Building
 ### Requirements
+* GNU make
 * Python 3
-* ndstool
-* 
+* [ndstool](https://github.com/devkitPro/ndstool)
+* zsh
 
 Place the ROM in `./src/` as `baserom.nds`.
 
