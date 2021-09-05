@@ -1,3 +1,6 @@
+Written by ArcanaXIX
+====================
+
 This document lists my findings with respect to the
 location and format of visual data in the Ghost Trick
 ROM. It does not include exhaustive directories of any

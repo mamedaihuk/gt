@@ -1,3 +1,6 @@
+Written by ArcanaXIX
+====================
+
 This document contains a list of hex codes
 that act as master pointers to the sprites in
 the Ghost Trick ROM. I did not copy down all
