@@ -67,18 +67,6 @@ def decode_1LMG():
         if messages[-1].decoded[-(1+len(commands[0xfffe])):] == commands[0xfffe]+'0':
             messages[-1].decoded = messages[-1].decoded[:-1]
 
-    # We're done! Let's print each message using the message class's string conversion function.
-    print(*messages, sep='')
-
-def printProgressBar (iteration, total):
-    """Based on stack overflow 'Text Progress Bar in the Console [closed]'"""
-    percent = "{0:.1f}".format(100 * (iteration / float(total)))
-    filledLength = int(100 * iteration // total)
-    bar = '█' * filledLength + '-' * (100 - filledLength)
-    print(f'\r|{bar}| {percent}%', end = "\r")
-    if iteration == total: 
-        print()
-
 if __name__ == "__main__":
     start = time.perf_counter()
     output = args.output
@@ -87,30 +75,12 @@ if __name__ == "__main__":
     successful = 0
     errors = ""
     for v in range(1,len(sys.argv)):
-        printProgressBar(v-1,len(sys.argv)-1)
-        # if sys.argv[v] == "--output":
-        #     if os.path.isdir(sys.argv[v+1]):
-        #         output = sys.argv[v+1]
-        #         continue
-        #     errors += f"Invalid output folder: {sys.argv[v+1]}\n"
-        #     break
         if os.path.isfile(sys.argv[v]):
-            if sys.argv[v-1] != "--view":
-                original_stdout = sys.stdout
-                new_file = "{}.txt".format(os.path.join(output,os.path.basename(sys.argv[v])))
-                f = open(new_file, 'w', encoding="utf8")
-                sys.stdout = f
             e = decode_1LMG()
-            if sys.argv[v-1] != "--view":
-                sys.stdout = original_stdout
-                f.close()
             if e == None:
                 successful += 1
+                sys.exit(0)
             else:
                 errors += f"{e}: {os.path.basename(sys.argv[v])}\n"
-            continue
-        elif not sys.argv[v] == "--view":
-            errors += f"Couldn't process command: {sys.argv[v]}\n"
-    printProgressBar(1,1)
-    print(errors)
-    print("Successfully decoded {0} file{1} in {2:.1f}ms".format(successful,("" if (successful==1) else "s"),(time.perf_counter()-start)*1000))
+                print(errors)
+                sys.exit(1)
