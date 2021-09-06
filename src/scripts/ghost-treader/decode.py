@@ -4,7 +4,7 @@ Written by CrazyMLC, CatTrinket, fmlatghor
 """
 from io import BytesIO
 from struct import unpack
-import sys,os,time
+import sys,os
 import argparse
 
 from tables import *
@@ -72,13 +72,11 @@ if __name__ == "__main__":
     output = args.output
     if not os.path.isdir(output):
         os.mkdir(output)
-    successful = 0
     errors = ""
     for v in range(1,len(sys.argv)):
         if os.path.isfile(sys.argv[v]):
             e = decode_1LMG()
             if e == None:
-                successful += 1
                 sys.exit(0)
             else:
                 errors += f"{e}: {os.path.basename(sys.argv[v])}\n"

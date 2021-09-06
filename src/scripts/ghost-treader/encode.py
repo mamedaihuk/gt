@@ -11,7 +11,7 @@ from tables import *
 from message import *
 
 parser = argparse.ArgumentParser(description="1LMG encoder")
-#parser.add_argument("-i", "--input", help="Input file", required=True)
+parser.add_argument("-i", "--input", help="Input file", required=True)
 parser.add_argument("-o", "--output", help="Output file", required=True)
 
 args = parser.parse_args()
