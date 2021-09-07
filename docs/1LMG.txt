@@ -1,6 +1,3 @@
-Written by CrazyMLC
-===================
-
 header format: (length 52 bytes)
 4 bytes '1LMG' (file type)
 4 byes (??? script related)

@@ -20,5 +20,9 @@ This will do everything; unpacking, building, repacking. If you would like to
 do only just one of said instructions, see the section below.
 
 ### Main Targets
-* `pre` - unpack the ROM and extract the assets
+* `pre` - unpack the ROM and extract its assets
 * `post` - build and repack the ROM
+* `build` - build the ROM, but don't repack it
+	* `sdat` repack the sound data
+	* `text` repack the text data
+* `clean` - remove all generated files and directories

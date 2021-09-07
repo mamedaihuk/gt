@@ -1,0 +1,2 @@
+#!/bin/dash
+ndstool -c pak_rom.nds -8 build/arm9.bin -9i build/arm9i.bin -7 build/arm7.bin -7i build/arm7i.bin -y9 build/y9.bin -y7 build/y7.bin -d build/data -y build/overlay -t build/banner.bin -h build/header.bin -o build/banner.bmp
