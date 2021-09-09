@@ -6,3 +6,7 @@ data/
 
 # Python
 __pycache__/
+
+# ghost-treader
+decoded/
+encoded/

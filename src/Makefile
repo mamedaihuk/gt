@@ -6,7 +6,6 @@ all: pre post
 
 pre:
 	${SCRIPTS}/pre
-	${SCRIPTS}/repack
 
 post: build
 	${SCRIPTS}/repack
@@ -21,3 +20,6 @@ sdat:
 
 clean:
 	rm -rf data assets build pak_rom.nds
+
+testi:
+	find data/st*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) | while read f; do nlzss $f > $f:r; done

@@ -1,5 +1,19 @@
 #!/bin/zsh
-cd ../..
+SCRIPTS="./scripts"
+NLZSS="$SCRIPTS/nlzss"
+TREADER="$SCRIPTS/ghost-treader"
+
+
 ndstool -x baserom.nds -d data
-for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do nlzss "${file}" > "${file%.*}"; done ); done
+
+for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do ../../$NLZSS/nlzss "$file" > "$file:r"; done ); done
+
+for d in data/st*/; do
+	( cd "${d}" && for file in *.xml.lz; do
+		../../$NLZSS/nlzss "$file" > "$file:r" &
+		pid=$!
+		wait $pid
+	done);
+done
+
 ./scripts/SDATTool/__main__.py -o -u data/sound_data.sdat assets/sound_data

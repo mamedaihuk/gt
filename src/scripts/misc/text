@@ -1,4 +1,6 @@
 #!/bin/zsh
-cd ../..
-#./scripts/ghost-treader/encode.py -i ${file} -o ${file:r}
-for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do nlzss-c "$file" > "$file.lz"; done ); done
+SCRIPTS="./scripts"
+NLZSS="$SCRIPTS/nlzss"
+TREADER="$SCRIPTS/ghost-treader"
+
+for d in data/st*/; do ( $TREADER/encode.py $d && cd "$d" && for file in *.xml.lz; do $NLZSS/nlzss-c "$file" > "$file.lz"; done ); done
