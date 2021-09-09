@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/dash
 SCRIPTS="./scripts"
 NLZSS="$SCRIPTS/nlzss"
 TREADER="$SCRIPTS/ghost-treader"
@@ -6,14 +6,21 @@ TREADER="$SCRIPTS/ghost-treader"
 
 ndstool -x baserom.nds -d data
 
-for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do ../../$NLZSS/nlzss "$file" > "$file:r"; done ); done
+# for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do ../../$NLZSS/nlzss "$file" > "$file:r"; done ); done
 
-for d in data/st*/; do
-	( cd "${d}" && for file in *.xml.lz; do
-		../../$NLZSS/nlzss "$file" > "$file:r" &
+# for d in data/st*/; do
+# 	( cd "${d}" && for file in *.xml.lz; do
+# 		../../$NLZSS/nlzss "$file" > "$file%.*" &
+# 		pid=$!
+# 		wait $pid
+# 	done);
+# done
+
+find data/st*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
+	while read f; do
+		nlzss $f > ${file%.*} &
 		pid=$!
 		wait $pid
-	done);
-done
+	done
 
 ./scripts/SDATTool/__main__.py -o -u data/sound_data.sdat assets/sound_data
