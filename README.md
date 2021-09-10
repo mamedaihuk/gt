@@ -7,7 +7,6 @@ modifiable.
 * GNU make
 * Python 3
 * [ndstool](https://github.com/devkitPro/ndstool)
-* zsh
 
 Place the ROM in `./src/` as `baserom.nds`.
 
@@ -25,4 +24,5 @@ do only just one of said instructions, see the section below.
 * `build` - build the ROM, but don't repack it
 	* `sdat` repack the sound data
 	* `text` repack the text data
+* `repack` - repack the ROM
 * `clean` - remove all generated files and directories

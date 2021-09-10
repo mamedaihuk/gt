@@ -1,6 +1,4 @@
-SHELL=/usr/bin/dash
 SCRIPTS=./scripts/misc
-SDATTOOL=./scripts/SDATTOOL
 
 all: pre post
 
@@ -10,13 +8,16 @@ pre:
 post: build
 	${SCRIPTS}/repack
 
+repack:
+	${SCRIPTS}/repack
+
 build: text sdat
 
 text:
 	${SCRIPTS}/text
 
 sdat:
-	${SDATTOOL}/__main__.py -ns -b assets/sound_data.sdat assets/sound_data
+	${SCRIPTS}/sdat
 
 clean:
-	rm -rf data assets build pak_rom.nds
+	${SCRIPTS}/clean

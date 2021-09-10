@@ -8,19 +8,26 @@ ndstool -x baserom.nds -d data
 
 # for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do ../../$NLZSS/nlzss "$file" > "${file%.*}"; done ); done
 
-for d in data/st*/; do
-	( cd "${d}" && for file in *.xml.lz; do
-		../../$NLZSS/nlzss "$file" > "${file%.*}"; #&
-		pid=$!
-		wait $pid
-	done);
-done
-
-# find data/st*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
-# 	while read file; do
-# 		nlzss $file > ${file%.*} &
+# for d in data/*/; do
+# 	( cd "${d}" && for file in *.xml.lz; do
+# 		../../$NLZSS/nlzss "$file" > "${file%.*}" &
 # 		pid=$!
 # 		wait $pid
-# 	done
+# 	done);
+# done
 
-# ./scripts/SDATTool/__main__.py -o -u data/sound_data.sdat assets/sound_data
+find data/*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
+	while read file; do
+		$NLZSS/nlzss $file > ${file%.*} &
+		pid=$!
+		wait $pid
+	done
+
+find data/*/*.xml |
+	while read file; do
+		$TREADER/decode.py -s $file 2>/dev/null &
+		pid=$!
+		wait $pid
+	done
+
+./scripts/SDATTool/__main__.py -o -u data/sound_data.sdat assets/sound_data

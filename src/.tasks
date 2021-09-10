@@ -1,12 +1,19 @@
+= NLZSS =
 [x] Automatically decompress/compress select xml.lz files
 	[] Make more efficient
-		* Try `parallel`
+		[x] Try `parallel`
 		* Use different method
+		* Rewrite nlzss
 
-Automate decoding/encoding all st*xml files
+= GHOST-TREADER =
+[x] Automate decoding/encoding all st*xml files
+	[] Output files to correct dirs
 
-figure out more about the cpac containers
+= CPAC =
+Figure out more about the cpac containers
 
-do some research on the imb fonts
+= IMB =
+Do some research on the imb fonts
 
-find way to add more langs without replacing ones
+= 1LMG =
+Find way to add more langs without replacing ones

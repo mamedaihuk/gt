@@ -1,6 +1,18 @@
-#!/bin/zsh
+#!/bin/dash
 SCRIPTS="./scripts"
 NLZSS="$SCRIPTS/nlzss"
 TREADER="$SCRIPTS/ghost-treader"
 
-for d in data/st*/; do ( $TREADER/encode.py $d && cd "$d" && for file in *.xml.lz; do $NLZSS/nlzss-c "$file" > "$file.lz"; done ); done
+find assets/*/*.xml.txt |
+	while read file; do
+		$TREADER/encode.py -s $file 2>/dev/null &
+		pid=$!
+		wait $pid
+	done
+
+find data/*/*.xml |
+	while read file; do
+		$NLZSS/nlzss-c $file > $file.lz &
+		pid=$!
+		wait $pid
+	done
