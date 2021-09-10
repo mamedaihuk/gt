@@ -1,2 +1,22 @@
-long func: make -j12 pre  33,68s user 6,19s system 93% cpu 42,653 total
-short func: make -j12 pre  33,45s user 5,97s system 95% cpu 41,303 total
+# Using a for loop
+## With parallel
+./testi ::: parallel  32,50s user 5,79s system 97% cpu 39,410 total
+
+## Without parallel
+./testi  31,51s user 5,81s system 98% cpu 37,764 total
+
+# Using find
+## No bg processes
+./testi  31,21s user 5,48s system 99% cpu 37,012 total
+
+## 1 bg process(?)
+./testi  30,48s user 5,22s system 97% cpu 36,489 total
+
+## Multiple bg processes
+./testi  30,76s user 5,97s system 99% cpu 37,025 total
+
+# Decompressing all files
+./testi  30,95s user 5,43s system 99% cpu 36,642 total
+
+# Decompressing all files with parallel
+./testi ::: parallel  31,35s user 5,63s system 97% cpu 37,754 total

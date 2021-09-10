@@ -1,4 +1,9 @@
-[wait] Automate decoding/encoding all st*xml files
+[x] Automatically decompress/compress select xml.lz files
+	[] Make more efficient
+		* Try `parallel`
+		* Use different method
+
+Automate decoding/encoding all st*xml files
 
 figure out more about the cpac containers
 

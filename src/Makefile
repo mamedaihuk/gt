@@ -1,4 +1,4 @@
-SHELL=/bin/zsh
+SHELL=/usr/bin/dash
 SCRIPTS=./scripts/misc
 SDATTOOL=./scripts/SDATTOOL
 
