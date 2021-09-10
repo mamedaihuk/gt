@@ -1,0 +1,2 @@
+long func: make -j12 pre  33,68s user 6,19s system 93% cpu 42,653 total
+short func: make -j12 pre  33,45s user 5,97s system 95% cpu 41,303 total
