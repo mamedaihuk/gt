@@ -25,9 +25,27 @@ find data/*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chap
 
 find data/*/*.xml |
 	while read file; do
-		$TREADER/decode.py -s $file 2>/dev/null &
+		$TREADER/decode.py -s $file -o assets/ 2>/dev/null &
 		pid=$!
 		wait $pid
 	done
+
+find data -type d |
+	tail -n +2 |
+	sed 's/data/assets/g' |
+	while read dir; do
+		mkdir $dir;
+	done
+
+find data/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
+	sed 's/data/assets/g' |
+	read out |
+	find assets/*.xml.txt |
+	read in |
+	while read in; do
+		mv $in $out;
+	done
+	#printf "$in\n\n\n\n" |
+	#printf "$out"
 
 ./scripts/SDATTool/__main__.py -o -u data/sound_data.sdat assets/sound_data
