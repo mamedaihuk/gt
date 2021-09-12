@@ -1,0 +1,3 @@
+[submodule "src/scripts/ghost-treader"]
+	path = src/scripts/ghost-treader
+	url = git@github.com:CrazyMLC/ghost-treader
