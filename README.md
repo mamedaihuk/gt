@@ -4,7 +4,6 @@ modifiable.
 
 ## Building
 ### Requirements
-* GNU make
 * Python 3
 * [ndstool](https://github.com/devkitPro/ndstool)
 
