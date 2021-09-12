@@ -1,0 +1,4 @@
+#!/bin/dash
+wget -N http://www.arcanaxix.com/Romhacking/ghosttrickvisuals.txt -O visuals.txt
+wget -N http://www.arcanaxix.com/Romhacking/ghosttricksprites.txt -O sprites.txt
+sed -i '1s/^/Written by ArcanaXIX\n====================\n\n/' *.txt
