@@ -1,0 +1,113 @@
+#!/bin/dash
+############################################################
+# munkki	Build script for gt
+# Copyright (C) 2021, fm'latghor <leocoogan@tutanota.com>
+# SPDX		MIT
+############################################################
+SCRIPTS="./scripts"
+NLZSS="$SCRIPTS/nlzss"
+TREADER="$SCRIPTS/ghost-treader"
+SDATTOOL="$SCRIPTS/SDATTool/__main__.py"
+ASSETS="./assets"
+DATA="./data"
+BASE="./baserom.nds"
+OUT="./gt.nds"
+BUILD="./build"
+PROG="munkki"
+
+# main() {
+# 	pre()
+# 	text()
+# 	sdat()
+# }
+
+pre() {
+	if [ -d -z "$ASSETS" ]; then
+		echo "$ASSETS exists and is not empty. You may use $PROG clean to clean up generated outputs."
+	else
+		ndstool -x $BASE -d $DATA >/dev/null
+		echo "Unpacked $ROM"
+
+		# for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do ../../$NLZSS/nlzss "$file" > "${file%.*}"; done ); done
+
+		# for d in data/*/; do
+		# 	( cd "${d}" && for file in *.xml.lz; do
+		# 		../../$NLZSS/nlzss "$file" > "${file%.*}" &
+		# 		pid=$!
+		# 		wait $pid
+		# 	done);
+		# done
+
+		find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
+		while read file; do
+			$NLZSS/nlzss $file > ${file%.*} &
+			pid=$!
+			wait $pid
+		done
+		echo "Decompressed all 1LMG dialogue files in $DATA"
+
+		find $DATA/*/*.xml |
+		while read file; do
+			$TREADER/decode.py -s $file -o assets/ 2>/dev/null &
+			pid=$!
+			wait $pid
+		done
+		echo "Decoded dialogue files to $ASSETS"
+
+		find $DATA -type d |
+		tail -n +2 |
+		sed 's/data/assets/g' |
+		while read dir; do
+			mkdir $dir;
+		done
+		echo "Copied directory structure to ./assets"
+
+		find $DATA/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
+		sed 's/$DATA/assets/g' |
+		read out |
+		find assets/*.xml.txt |
+		read in |
+		while read in; do
+			mv $in $out;
+		done
+		echo "Organised 1LMG files in $ASSETS"
+		#printf "$in\n\n\n\n" |
+		#printf "$out"
+
+		$SDATTOOL -o -u $DATA/sound_data.sdat assets/sound_data >/dev/null
+	fi
+}
+
+text () {
+	find assets/*/*.xml.txt |
+	while read file; do
+		$TREADER/encode.py -s $file 2>/dev/null &
+		pid=$!
+		wait $pid
+	done
+
+	find data/*/*.xml |
+	while read file; do
+		$NLZSS/nlzss-c $file > $file.lz &
+		pid=$!
+		wait $pid
+	done
+}
+
+sdat () {
+	$SDATTool -ns -b assets/sound_data.sdat assets/sound_data
+}
+
+repack() {
+	ndstool -c $OUT -8 $BUILD/arm9.bin -9i $BUILD/arm9i.bin \
+	-7 $BUILD/arm7.bin -7i $BUILD/arm7i.bin -y9 $BUILD/y9.bin \
+	-y7 $BUILD/y7.bin -d $BUILD/data -y $BUILD/overlay \
+	-t $BUILD/banner.bin -h $BUILD/header.bin -o $BUILD/banner.bmp
+}
+
+clean() {
+	rm -rf $DATA $ASSETS $BUILD $OUT
+}
+
+#main "$@"
+$@

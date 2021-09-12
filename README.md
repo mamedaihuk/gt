@@ -12,7 +12,7 @@ Place the ROM in `./src/` as `baserom.nds`.
 
 
 ```sh
-make
+./munkki
 ```
 
 This will do everything; unpacking, building, repacking. If you would like to

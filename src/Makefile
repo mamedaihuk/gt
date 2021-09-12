@@ -2,7 +2,7 @@ SCRIPTS=./scripts/misc
 
 all: pre post
 
-pre:
+pre: clean
 	${SCRIPTS}/pre
 
 post: build

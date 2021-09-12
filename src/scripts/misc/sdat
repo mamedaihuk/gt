@@ -1,2 +1,0 @@
-#!/bin/dash
-./scripts/SDATTOOL/__main__.py -ns -b assets/sound_data.sdat assets/sound_data

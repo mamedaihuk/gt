@@ -1,2 +1,0 @@
-#!/bin/dash
-rm -rf data assets build pak_rom.nds
