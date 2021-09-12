@@ -15,15 +15,10 @@ OUT="./gt.nds"
 BUILD="./build"
 PROG="munkki"
 
-# main() {
-# 	pre()
-# 	text()
-# 	sdat()
-# }
-
 pre() {
-	if [ -d -z "$ASSETS" ]; then
+	if [ -d "$ASSETS" ]; then
 		echo "$ASSETS exists and is not empty. You may use $PROG clean to clean up generated outputs."
+		return 1
 	else
 		ndstool -x $BASE -d $DATA >/dev/null
 		echo "Unpacked $ROM"
@@ -71,10 +66,9 @@ pre() {
 			mv $in $out;
 		done
 		echo "Organised 1LMG files in $ASSETS"
-		#printf "$in\n\n\n\n" |
-		#printf "$out"
 
 		$SDATTOOL -o -u $DATA/sound_data.sdat assets/sound_data >/dev/null
+		return 0
 	fi
 }
 
@@ -109,5 +103,5 @@ clean() {
 	rm -rf $DATA $ASSETS $BUILD $OUT
 }
 
-#main "$@"
-$@
+main "$@"
+#$@
