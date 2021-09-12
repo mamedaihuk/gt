@@ -1,0 +1,48 @@
+#!/bin/dash
+############################################################
+# munkki	Build system for gt
+# Copyright (C) 2021, fm'latghor <leocoogan@tutanota.com>
+# SPDX		MIT
+############################################################
+NAME="munkki"
+PROG="mk"
+VERSION="0.1"
+ASSETS="./assets"
+BASE="./baserom.nds"
+BUILD="./build"
+DATA="./data"
+OUT="./gt.nds"
+SCRIPTS="./scripts"
+NLZSS="python $SCRIPTS/nlzss"
+SDATTOOL="$SCRIPTS/SDATTool/SDATTool/__main__.py"
+TREADER="python $SCRIPTS/ghost-treader"
+
+pre() {
+	if [ -d "$ASSETS" ]; then
+		printf "$ASSETS already exists. Use '$PROG clean' to remove generated outputs.\n"
+		return 1
+	else
+		ndstool -x $BASE -d $DATA -o $DATA/banner.bmp >/dev/null
+		# echo "Unpacked $ROM"
+
+		# for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do
+		# ../../$NLZSS/lzss3.py "$file" > "${file%.*}"; done ); done
+
+		# for d in data/*/; do
+		# 	( cd "${d}" && for file in *.xml.lz; do
+		# 		../../$NLZSS/lzss3.py "$file" > "${file%.*}" &
+		# 		pid=$!
+		# 		wait $pid
+		# 	done);
+		# done
+
+find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
+		while read file; do
+			$NLZSS/lzss3.py $file > ${file%.*} &
+			pid=$!
+			wait $pid
+		done
+	fi
+}
+
+"$@"

@@ -4,3 +4,6 @@
 [submodule "src/scripts/SDATTool"]
 	path = src/scripts/SDATTool
 	url = git@github.com:froggestspirit/SDATTool
+[submodule "src/scripts/nlzss"]
+	path = src/scripts/nlzss
+	url = git@github.com:magical/nlzss
