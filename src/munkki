@@ -6,8 +6,8 @@
 ############################################################
 SCRIPTS="./scripts"
 NLZSS="$SCRIPTS/nlzss"
-TREADER="$SCRIPTS/ghost-treader"
-SDATTOOL="$SCRIPTS/SDATTool/__main__.py"
+TREADER="python $SCRIPTS/ghost-treader"
+SDATTOOL="$SCRIPTS/SDATTool/SDATTOOL/__main__.py"
 ASSETS="./assets"
 DATA="./data"
 BASE="./baserom.nds"
