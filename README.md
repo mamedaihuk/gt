@@ -6,7 +6,7 @@ modifiable.
 ### Requirements
 * [DASH](http://gondor.apana.org.au/~herbert/dash)
 * [ndstool](https://github.com/devkitPro/ndstool)
-* [[Python]](https://www.python.org)
+* [Python](https://www.python.org)
 
 Copy the base ROM to `./src/` as `baserom.nds`.
 In `./src/` , run `./munkki`.
