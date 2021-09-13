@@ -121,11 +121,10 @@ help() {
 		\rusage: \033[1m"$PROG"\033[0m [options] \033[4m"target"\033[0m
 
 		\r\033[1m"Options"\033[0m:
-		\r-h, --help	prints this help message
-		\r-f, --force	ignores if $ASSETS is full
+		\r  -h, --help	prints this help message
+		\r  -f, --force	ignores if $ASSETS is full
 		
 		\r\033[1m"Targets"\033[0m:
-		\r  $PROG	\tUnpack, build, repack the ROM
 		\r  pre		unpack the ROM and extract its assets
 		\r  post	\tbuild and repack the ROM
 		\r    sdat	repack the sound data

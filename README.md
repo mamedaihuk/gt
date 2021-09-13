@@ -4,20 +4,17 @@ modifiable.
 
 ## Building
 ### Requirements
-* Python 3
+* [DASH](http://gondor.apana.org.au/~herbert/dash)
 * [ndstool](https://github.com/devkitPro/ndstool)
+* [[Python]]
 
-Place the ROM in `./src/` as `baserom.nds`.
-
-
-```sh
-./munkki
-```
+Copy the base ROM to `./src/` as `baserom.nds`.
+In `./src/` , run `./munkki`.
 
 This will do everything; unpacking, building, repacking. If you would like to
 do only just one of said instructions, see the section below.
 
-### Main Targets
+### Targets
 * `pre` - unpack the ROM and extract its assets
 * `post` - build and repack the ROM
 	* `text` repack the text data
