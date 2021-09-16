@@ -12,16 +12,18 @@ BASE="./baserom.nds"
 BUILD="./build"
 DATA="./data"
 OUT="./gt.nds"
-SCRIPTS="./scripts"
+SCRIPTS="./utils"
 NLZSS="python $SCRIPTS/nlzss"
 SDATTOOL="$SCRIPTS/SDATTool/SDATTool/__main__.py"
 TREADER="python $SCRIPTS/ghost-treader"
 
+
 pre() {
 	if [ -d "$ASSETS" ]; then
-		printf "$ASSETS already exists. Use '$PROG clean' to remove generated outputs.\n"
+		printf "%s already exists. Use '$PROG clean' to remove generated outputs.\n" "$ASSETS"
 		return 1
 	else
+		mkdir data
 		ndstool -x $BASE -d $DATA -o $DATA/banner.bmp >/dev/null
 		# echo "Unpacked $ROM"
 
@@ -36,10 +38,10 @@ pre() {
 		# 	done);
 		# done
 
-		find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name
+		find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name \
 		"*demo*" -o -name "*chapter*" \) |
 		while read file; do
-			$NLZSS/lzss3.py $file > ${file%.*} &
+			echo "$NLZSS/lzss3.py" "$file" > "${file%.*}" &
 			pid=$!
 			wait $pid
 		done
@@ -61,20 +63,21 @@ pre() {
 		done
 		# echo "Copied directory structure to ./assets"
 
-		find $DATA/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o
-		-name "*demo*" -o -name "*chapter*" \) |
-		sed 's/$DATA/assets/g' |
-		read out |
-		find assets/*.xml.txt |
-		read in |
-		while read in; do
-			mv $in $out;
-		done
+		# find $DATA/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o \
+		# -name "*demo*" -o -name "*chapter*" \) |
+		# sed 's/$DATA/assets/g' |
+		# read out |
+		# find $ASSETS/*.xml.txt |
+		# read in |
+		# while read in; do
+		# 	mv $in $out;
+		# done
 		# echo "Organised 1LMG files in $ASSETS"
 
-		$SDATTOOL -o -u $DATA/sound_data.sdat assets/sound_data
-		>/dev/null
+		$SDATTOOL -o -u $DATA/sound_data.sdat assets/sound_data >/dev/null
 		return 0
+		# else
+		# 	printf "%s is missing.\n" "$BASE"
 	fi
 }
 
@@ -101,7 +104,7 @@ text () {
 }
 
 sdat () {
-	$SDATTool -ns -b assets/sound_data.sdat assets/sound_data
+	$SDATTOOL -ns -b assets/sound_data.sdat assets/sound_data >/dev/null
 	repack
 }
 

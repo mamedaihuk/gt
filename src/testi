@@ -1,9 +1,8 @@
 #!/bin/dash
-find data/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o -name "*demo*" -o -name "*chapter*" \) |
-sed 's/data/assets/g' |
-while read out; do
-	find assets/*.xml.txt |
-	while read in; do
-		mv $in $out;
-	done
+find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name
+"*demo*" -o -name "*chapter*" \) |
+while read file; do
+	"$NLZSS/lzss3.py" "$file" > "${file%.*}" &
+	pid=$!
+	wait $pid
 done
