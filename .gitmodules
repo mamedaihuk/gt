@@ -1,9 +1,0 @@
-[submodule "src/scripts/ghost-treader"]
-	path = src/scripts/ghost-treader
-	url = git@github.com:CrazyMLC/ghost-treader
-[submodule "src/scripts/SDATTool"]
-	path = src/scripts/SDATTool
-	url = git@github.com:froggestspirit/SDATTool
-[submodule "src/scripts/nlzss"]
-	path = src/scripts/nlzss
-	url = git@github.com:magical/nlzss

@@ -7,77 +7,80 @@
 NAME="munkki"
 PROG="mk"
 VERSION="0.1"
-ASSETS="./assets"
+ASSETS="./assets/"
 BASE="./baserom.nds"
 BUILD="./build"
-DATA="./data"
+DATA="./data/"
 OUT="./gt.nds"
 SCRIPTS="./utils"
 NLZSS="python $SCRIPTS/nlzss"
 SDATTOOL="$SCRIPTS/SDATTool/SDATTool/__main__.py"
 TREADER="python $SCRIPTS/ghost-treader"
 
-
 pre() {
-	if [ -d "$ASSETS" ]; then
-		printf "%s already exists. Use '$PROG clean' to remove generated outputs.\n" "$ASSETS"
-		return 1
+	if [ -z "baserom.nds" ]; then
+		printf "Missing %s\n" "$BASE"
 	else
-		mkdir data
-		ndstool -x $BASE -d $DATA -o $DATA/banner.bmp >/dev/null
-		# echo "Unpacked $ROM"
+		if [ -d "$ASSETS" ]; then
+			printf "%s already exists. Use '$PROG clean' to remove generated outputs.\n" "$ASSETS"
+			return 1
+		else
+			mkdir data
+			ndstool -x $BASE -d $DATA -o $DATA/banner.bmp >/dev/null
+			# echo "Unpacked $ROM"
 
-		# for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do
-		# ../../$NLZSS/lzss3.py "$file" > "${file%.*}"; done ); done
+			# for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do
+			# ../../$NLZSS/lzss3.py "$file" > "${file%.*}"; done ); done
 
-		# for d in data/*/; do
-		# 	( cd "${d}" && for file in *.xml.lz; do
-		# 		../../$NLZSS/lzss3.py "$file" > "${file%.*}" &
-		# 		pid=$!
-		# 		wait $pid
-		# 	done);
-		# done
+			# for d in data/*/; do
+			# 	( cd "${d}" && for file in *.xml.lz; do
+			# 		../../$NLZSS/lzss3.py "$file" > "${file%.*}" &
+			# 		pid=$!
+			# 		wait $pid
+			# 	done);
+			# done
 
-		find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name \
-		"*demo*" -o -name "*chapter*" \) |
-		while read file; do
-			echo "$NLZSS/lzss3.py" "$file" > "${file%.*}" &
-			pid=$!
-			wait $pid
-		done
-		# echo "Decompressed all 1LMG dialogue files in $DATA"
+			find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name \
+			"*demo*" -o -name "*chapter*" \) |
+			while read file; do
+				echo "$NLZSS/lzss3.py" "$file" > "${file%.*}" &
+				pid=$!
+				wait $pid
+			done
+			# echo "Decompressed all 1LMG dialogue files in $DATA"
 
-		find $DATA/*/*.xml |
-		while read file; do
-			$TREADER/decode.py -s $file -o assets/ 2>/dev/null &
-			pid=$!
-			wait $pid
-		done
-		# echo "Decoded dialogue files to $ASSETS"
+			find $DATA/*/*.xml |
+			while read file; do
+				$TREADER/decode.py -s $file -o $ASSETS 2>/dev/null &
+				pid=$!
+				wait $pid
+			done
+			# echo "Decoded dialogue files to $ASSETS"
 
-		find $DATA -type d |
-		tail -n +2 |
-		sed 's/data/assets/g' |
-		while read dir; do
-			mkdir $dir;
-		done
-		# echo "Copied directory structure to ./assets"
+			find $DATA -type d |
+			tail -n +2 |
+			sed 's/$DATA/$ASSETS/g' |
+			while read dir; do
+				mkdir $dir;
+			done
+			# echo "Copied directory structure to ./assets"
 
-		# find $DATA/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o \
-		# -name "*demo*" -o -name "*chapter*" \) |
-		# sed 's/$DATA/assets/g' |
-		# read out |
-		# find $ASSETS/*.xml.txt |
-		# read in |
-		# while read in; do
-		# 	mv $in $out;
-		# done
-		# echo "Organised 1LMG files in $ASSETS"
+			# find $DATA/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o \
+			# -name "*demo*" -o -name "*chapter*" \) |
+			# sed 's/$DATA/assets/g' |
+			# read out |
+			# find $ASSETS/*.xml.txt |
+			# read in |
+			# while read in; do
+			# 	mv $in $out;
+			# done
+			# echo "Organised 1LMG files in $ASSETS"
 
-		$SDATTOOL -o -u $DATA/sound_data.sdat assets/sound_data >/dev/null
-		return 0
-		# else
-		# 	printf "%s is missing.\n" "$BASE"
+			$SDATTOOL -o -u $DATA/sound_data.sdat $ASSETS/sound_data >/dev/null
+			# return 0
+			# Unsure whether I need to return a value since the programs will
+			# return their own and there may be varying degrees of success.
+		fi
 	fi
 }
 
@@ -87,7 +90,7 @@ build () {
 }
 
 text () {
-	find assets/*/*.xml.txt |
+	find $ASSETS/*/*.xml.txt |
 	while read file; do
 		$TREADER/encode.py -s $file 2>/dev/null &
 		pid=$!
@@ -104,7 +107,7 @@ text () {
 }
 
 sdat () {
-	$SDATTOOL -ns -b assets/sound_data.sdat assets/sound_data >/dev/null
+	$SDATTOOL -ns -b $ASSETS/sound_data.sdat $ASSETS/sound_data >/dev/null
 	repack
 }
 
