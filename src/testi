@@ -1,8 +1,0 @@
-#!/bin/dash
-find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name
-"*demo*" -o -name "*chapter*" \) |
-while read file; do
-	"$NLZSS/lzss3.py" "$file" > "${file%.*}" &
-	pid=$!
-	wait $pid
-done

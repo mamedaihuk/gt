@@ -12,10 +12,10 @@ BASE="./baserom.nds"
 BUILD="./build"
 DATA="./data/"
 OUT="./gt.nds"
-SCRIPTS="./utils"
-NLZSS="python $SCRIPTS/nlzss"
-SDATTOOL="$SCRIPTS/SDATTool/SDATTool/__main__.py"
-TREADER="python $SCRIPTS/ghost-treader"
+UTILS="./utils"
+NLZSS="python $UTILS/nlzss"
+SDATTOOL="$UTILS/SDATTool/SDATTool/__main__.py"
+TREADER="python $UTILS/ghost-treader"
 
 pre() {
 	if [ -z "baserom.nds" ]; then
