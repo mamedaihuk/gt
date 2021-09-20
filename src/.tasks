@@ -1,9 +1,9 @@
 = NLZSS =
 [x] Automatically decompress/compress select xml.lz files
-	[] Make more efficient
+	[x] Make more efficient
 		[x] Try `parallel`
 		[x] Use different method
-		* Rewrite nlzss
+		[x] Rewrite nlzss
 
 = GHOST-TREADER =
 [x] Automate decoding/encoding all st*xml files

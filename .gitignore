@@ -10,3 +10,6 @@ __pycache__/
 # ghost-treader
 decoded/
 encoded/
+
+# LZSS
+lzss/lzss

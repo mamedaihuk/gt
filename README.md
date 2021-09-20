@@ -4,9 +4,11 @@ modifiable.
 
 ## Building
 ### Requirements
+* [Clang](https://clang.llvm.org)
 * [DASH](http://gondor.apana.org.au/~herbert/dash)
-* [ndstool](https://github.com/devkitPro/ndstool)
+* [GNU Make](https://www.gnu.org/software/make)
 * [Python](https://www.python.org)
+* [ndstool](https://github.com/devkitPro/ndstool)
 
 Copy the base ROM to `./src/` as `baserom.nds`.
 In `./src/` , run `./munkki`.
