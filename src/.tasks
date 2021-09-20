@@ -2,7 +2,7 @@
 [x] Automatically decompress/compress select xml.lz files
 	[] Make more efficient
 		[x] Try `parallel`
-		* Use different method
+		[x] Use different method
 		* Rewrite nlzss
 
 = GHOST-TREADER =

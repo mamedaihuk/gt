@@ -1,3 +1,21 @@
-The xml files are binary versions of scripts for the game's own scripting lang.
+# 1LMG
+The xml files are perhaps binary versions of scripts for the game's own
+scripting lang.
 
 arm9.bin may contain an interpreter/parser for these scripts
+
+
+# IMB
+balloon_font_en.imb 	; balloon text font
+
+some of the font files aren't even needed unclear where data is kept
+
+fonts2bpp.bin stores font data.
+
+CharWidth.bin controls character width.
+F1** lines seem to controls space between puncuation.
+First section seems to control space between first and second char.
+Putting ff in every byte crowds text.
+Putting 00 in every byte expands text -- which is the default.
+
+Unsure how or if menu text can be modified.

@@ -13,7 +13,8 @@ BUILD="./build"
 DATA="./data/"
 OUT="./gt.nds"
 UTILS="./utils"
-NLZSS="python $UTILS/nlzss"
+SCRIPTS="./scripts"
+NLZSS="$SCRIPTS/nlzss_cli.py"
 SDATTOOL="$UTILS/SDATTool/SDATTool/__main__.py"
 TREADER="python $UTILS/ghost-treader"
 
@@ -29,53 +30,6 @@ pre() {
 			ndstool -x $BASE -d $DATA -o $DATA/banner.bmp >/dev/null
 			# echo "Unpacked $ROM"
 
-			# for d in data/st*/; do ( cd "${d}" && for file in *.xml.lz; do
-			# ../../$NLZSS/lzss3.py "$file" > "${file%.*}"; done ); done
-
-			# for d in data/*/; do
-			# 	( cd "${d}" && for file in *.xml.lz; do
-			# 		../../$NLZSS/lzss3.py "$file" > "${file%.*}" &
-			# 		pid=$!
-			# 		wait $pid
-			# 	done);
-			# done
-
-			find $DATA/*/*.xml.lz -type f \( -name "*game*" -o -name \
-			"*demo*" -o -name "*chapter*" \) |
-			while read file; do
-				echo "$NLZSS/lzss3.py" "$file" > "${file%.*}" &
-				pid=$!
-				wait $pid
-			done
-			# echo "Decompressed all 1LMG dialogue files in $DATA"
-
-			find $DATA/*/*.xml |
-			while read file; do
-				$TREADER/decode.py -s $file -o $ASSETS 2>/dev/null &
-				pid=$!
-				wait $pid
-			done
-			# echo "Decoded dialogue files to $ASSETS"
-
-			find $DATA -type d |
-			tail -n +2 |
-			sed 's/$DATA/$ASSETS/g' |
-			while read dir; do
-				mkdir $dir;
-			done
-			# echo "Copied directory structure to ./assets"
-
-			# find $DATA/*/*.xml -type f \( -name "*.xml" -o -name "*game*" -o \
-			# -name "*demo*" -o -name "*chapter*" \) |
-			# sed 's/$DATA/assets/g' |
-			# read out |
-			# find $ASSETS/*.xml.txt |
-			# read in |
-			# while read in; do
-			# 	mv $in $out;
-			# done
-			# echo "Organised 1LMG files in $ASSETS"
-
 			$SDATTOOL -o -u $DATA/sound_data.sdat $ASSETS/sound_data >/dev/null
 			# return 0
 			# Unsure whether I need to return a value since the programs will
@@ -90,19 +44,8 @@ build () {
 }
 
 text () {
-	find $ASSETS/*/*.xml.txt |
-	while read file; do
-		$TREADER/encode.py -s $file 2>/dev/null &
-		pid=$!
-		wait $pid
-	done
-
-	find data/*/*.xml |
-	while read file; do
-		$NLZSS/compress.py $file > $file.lz &
-		pid=$!
-		wait $pid
-	done
+	# Encode text
+	# Compress text
 	repack
 }
 
