@@ -106,7 +106,6 @@ static int decode_files(int argc, char** argv) {
     uint8_t* out = malloc(out_size);
     char out_path[PATH_MAX];
     int out_fd = -1;
-    char* p;
     const char* p;
     size_t n;
     struct stat st;
@@ -120,7 +119,7 @@ static int decode_files(int argc, char** argv) {
     for(int i = 0; i < argc; i++) {
         in_path = argv[i];
 
-	if((n = strlen(in_path)) <= suffix_len || strcmp(p = in_path + (n -suffix_len), suffix) != 0)
+	if((n = strlen(in_path)) <= suffix_len || strcmp(p = in_path + (n -suffix_len), suffix) != 0) {
             fprintf(stderr, "%s: suffix not present '%s'\n", progname, in_path);
             goto bail;
         }
