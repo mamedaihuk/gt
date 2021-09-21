@@ -14,6 +14,7 @@ enum {
 
 static const char* progname;
 static const char* suffix;
+static size_t suffix_len;
 static int mode;
 static int method;
 
@@ -70,6 +71,8 @@ static int parse_arguments(int argc, char** argv) {
         }
     }
 
+    suffix_len = strlen(suffix);
+
     if(mode != ENCODE && mode != DECODE) {
         fprintf(stderr, "%s: mode not specified\n", progname);
         return -1;
@@ -104,6 +107,7 @@ static int decode_files(int argc, char** argv) {
     char out_path[PATH_MAX];
     int out_fd = -1;
     char* p;
+    const char* p;
     size_t n;
     struct stat st;
     ssize_t bytes;
@@ -116,7 +120,7 @@ static int decode_files(int argc, char** argv) {
     for(int i = 0; i < argc; i++) {
         in_path = argv[i];
 
-        if((p = strstr(in_path, suffix)) == NULL) {
+	if((n = strlen(in_path)) <= suffix_len || strcmp(p = in_path + (n -suffix_len), suffix) != 0)
             fprintf(stderr, "%s: suffix not present '%s'\n", progname, in_path);
             goto bail;
         }
@@ -151,7 +155,7 @@ static int decode_files(int argc, char** argv) {
 
         in_size = st.st_size;
 
-        if(read(in_fd, in, in_size) != in_size) {
+        if(read(in_fd, in, in_size) != (ssize_t) in_size) {
             fprintf(stderr, "%s: failed to read input file '%s'\n", progname, in_path);
             goto bail;
         }
@@ -233,7 +237,7 @@ static int encode_files(int argc, char** argv) {
 
         in_size = st.st_size;
 
-        if(read(in_fd, in, in_size) != in_size) {
+        if(read(in_fd, in, in_size) != (ssize_t) in_size) {
             fprintf(stderr, "%s: failed to read input file '%s'\n", progname, in_path);
             goto bail;
         }
