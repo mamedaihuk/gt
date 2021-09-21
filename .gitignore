@@ -12,4 +12,5 @@ decoded/
 encoded/
 
 # LZSS
-lzss/lzss
+lzss
+!lzss/
