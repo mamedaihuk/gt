@@ -1,17 +1,22 @@
+.POSIX:
+	ifndef PREFIX
+		PREFIX = /usr/local
+	endif
+
 NAME=lzss
 CC=clang
 CFILES=*.c
-
+CFLAGS=-Wall -Wextra -02
 all: ${NAME}
 
 ${NAME}:
-	$(CC) $(CFILES) -o ${NAME}
+	${CC} ${CFILES} -o ${NAME}
 
 clean:
-	rm $(NAME) $(MAN)
+	${RM} ${NAME}
 
 install:
-	cp $(NAME) /usr/local/bin
+	cp ${NAME} ${DESTDIR}${PREFIX}/bin
 
 uninstall:
-	rm /usr/local/bin/${NAME}
+	${RM} ${DESTDIR}${PREFIX}/bin/${NAME}
