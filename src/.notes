@@ -6,16 +6,20 @@ arm9.bin may contain an interpreter/parser for these scripts
 
 
 # IMB
-balloon_font_en.imb 	; balloon text font
+## balloon_font_en.imb
+Set hexeditor width to 24
+---------------------------------
+hexedit -l24 balloon_font_en.imb`
+---------------------------------
+...and you can actually see the characters.
 
-some of the font files aren't even needed unclear where data is kept
+Colour can also be controlled.
+I assume there's more formatting options.
 
-fonts2bpp.bin stores font data.
+expression marks aren't in the balloon_font_en.imb
+It's safe to say to say that there\'s more to the balloon font/text in the game
+besides just balloon_font_en.imb
 
-CharWidth.bin controls character width.
-F1** lines seem to controls space between puncuation.
-First section seems to control space between first and second char.
-Putting ff in every byte crowds text.
-Putting 00 in every byte expands text -- which is the default.
+00 begins characters and 03 terms characters
 
-Unsure how or if menu text can be modified.
+seem to use mostly 3s and whatever else

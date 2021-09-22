@@ -1,6 +1,6 @@
 # Ghost Trick: Phantom Detective RE
-This is an attempt to reproduce the source code and make the assets for gt
-modifiable.
+This is an attempt to reproduce the source code and make the assets for Ghost
+Trick modifiable.
 
 ## Building
 ### Requirements

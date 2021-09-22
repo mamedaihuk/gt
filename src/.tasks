@@ -4,6 +4,7 @@
 		[x] Try `parallel`
 		[x] Use different method
 		[x] Rewrite nlzss
+		[] Have xargs use parallel/concurrent(?) jobs
 
 = GHOST-TREADER =
 [x] Automate decoding/encoding all st*xml files
