@@ -1,3 +1,5 @@
+Remember: little endian
+
 # 1LMG
 The xml files are perhaps binary versions of scripts for the game's own
 scripting lang.
@@ -7,19 +9,13 @@ arm9.bin may contain an interpreter/parser for these scripts
 
 # IMB
 ## balloon_font_en.imb
-Set hexeditor width to 24
+Set hexeditor width to 8
 ---------------------------------
-hexedit -l24 balloon_font_en.imb`
+hexedit -l8 balloon_font_en.imb`
 ---------------------------------
 ...and you can actually see the characters.
 
 Colour can also be controlled.
 I assume there's more formatting options.
 
-expression marks aren't in the balloon_font_en.imb
-It's safe to say to say that there\'s more to the balloon font/text in the game
-besides just balloon_font_en.imb
-
-00 begins characters and 03 terms characters
-
-seem to use mostly 3s and whatever else
+No idea where font_info.imb is used
