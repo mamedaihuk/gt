@@ -6,11 +6,11 @@
 NAME=lzss
 CC=clang
 CFILES=*.c
-CFLAGS=-Wall -Wextra -02
+CFLAGS=-Wall -Wextra -O3
 all: ${NAME}
 
 ${NAME}:
-	${CC} ${CFILES} -o ${NAME}
+	${CC} ${CFLAGS} ${CFILES} -o ${NAME}
 
 clean:
 	${RM} ${NAME}
