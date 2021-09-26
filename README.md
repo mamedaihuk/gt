@@ -10,8 +10,8 @@ Trick modifiable.
 * [Python](https://www.python.org)
 * [ndstool](https://github.com/devkitPro/ndstool)
 
-Copy the base ROM to `./src/` as `baserom.nds`.
-In `./src/` , run `./munkki`.
+Copy the base ROM to the root of the project as `baserom.nds`.
+Run `./munkki`.
 
 This will do everything; unpacking, building, repacking. If you would like to
 do only just one of said instructions, see the section below.
