@@ -1,3 +1,6 @@
 [submodule "src/utils/SDATTool"]
 	path = utils/SDATTool
 	url = https://github.com/froggestspirit/SDATTool
+[submodule "utils/SDATTool"]
+	path = utils/SDATTool
+	url = https://github.com/froggestspirit/SDATTool.git
