@@ -1,0 +1,5 @@
+message.py - Describes the Message class, which does the job of converting bytes into text, and text into bytes, using tables.py.
+
+tables.py - The Byte-to-Text dictionary for Ghost Trick's 1LMG files.
+
+__init__.py - Allows scripts in this folder to be accessed externally.

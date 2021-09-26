@@ -6,7 +6,7 @@
 NAME=lzss
 CC=clang
 CFILES=*.c
-CFLAGS=-Wall -Wextra -O3
+CFLAGS=-Wall -Wextra -Ofast
 all: ${NAME}
 
 ${NAME}:

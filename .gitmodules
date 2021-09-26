@@ -1,6 +1,3 @@
-[submodule "src/utils/ghost-treader"]
-	path = src/utils/ghost-treader
-	url = https://github.com/CrazyMLC/ghost-treader
 [submodule "src/utils/SDATTool"]
 	path = src/utils/SDATTool
 	url = https://github.com/froggestspirit/SDATTool

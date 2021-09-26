@@ -9,14 +9,13 @@
 = GHOST-TREADER =
 [x] Automate decoding/encoding all st*xml files
 	[] Output files to correct dirs
-[] Organise 1LMG output files
 
 = CPAC =
-Figure out more about the cpac containers
+[] Research CPAC containers
 
 = IMB =
 [x] Do some research on the imb fonts
-[] Write tool to modify balloon_font_en.imb
+[x] Write tool to modify balloon_font_en.imb
 
 = 1LMG =
 [] Find way to add more langs without replacing ones
@@ -25,4 +24,17 @@ Figure out more about the cpac containers
 [] Build instructions for NDS
 
 = Mobiclip =
-[] Write coder
+[] Improve libavcodec/mobiclip.c
+	[] Audio
+	[] HQ video
+
+= Source Code =
+[] arm9.bin
+[] arm7.bin
+[] overlays
+
+= Banner =
+[] Method to extract banner.bmp
+
+= Header =
+[] Research header.bin, etc

@@ -1,4 +1,11 @@
 #!/bin/dash
-wget -N http://www.arcanaxix.com/Romhacking/ghosttrickvisuals.txt -O visuals.txt
-wget -N http://www.arcanaxix.com/Romhacking/ghosttricksprites.txt -O sprites.txt
-sed -i '1s/^/Written by ArcanaXIX\n====================\n\n/' *.txt
+rm *.txt
+
+# Arcana's docs
+wget -N http://www.arcanaxix.com/Romhacking/ghosttrickvisuals.txt -O visuals_ArcanaXIX.txt
+wget -N http://www.arcanaxix.com/Romhacking/ghosttricksprites.txt -O sprites_ArcanaXIX.txt
+sed -i '1s/^/Written by ArcanaXIX\n====================\n\n/' *ArcanaXIX.txt
+
+# mlc's docs
+wget https://raw.githubusercontent.com/CrazyMLC/ghost-treader/master/notes.txt -O 1LMG_mlc.txt
+sed -i '1s/^/Written by CrazyMLC\n===================\n\n/' *mlc.txt

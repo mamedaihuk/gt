@@ -15,7 +15,7 @@ OUT="./gt.nds"
 UTILS="./utils"
 LZSS="$UTILS/lzss"
 SDATTOOL="$UTILS/SDATTool/SDATTool/__main__.py"
-TREADER="python $UTILS/ghost-treader"
+TREADER="$UTILS/src/ghost-treader"
 
 pre() {
 	if [ -z "baserom.nds" ]; then
@@ -47,7 +47,7 @@ build () {
 
 text () {
 	# Encode text
-	find $DATA -type f -name "*.xml" | xargs $LZSS/lzss -e
+	find $ASSETS -type f -name "*.xml" | xargs $LZSS/lzss -e
 	repack
 }
 

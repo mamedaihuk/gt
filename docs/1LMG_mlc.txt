@@ -1,0 +1,85 @@
+Written by CrazyMLC
+===================
+
+header format: (length 52 bytes)
+4 bytes '1LMG' (file type)
+4 byes (??? script related)
+4 bytes (data length)
+4 bytes (string length)
+4 bytes (table + label length)
+32 bytes (blank?)
+
+data format:
+# data (always multiples of 4 in size, has null padding if necessary)
+	# data bytes (no known consistent structure, although dialogue files always start with 0xff2d 0x#### 0x#### and end with 0xfffe for each entry)
+
+footer format:
+# strings (always multiples of 4 in size, has null padding if necessary)
+	2 bytes (* )
+	# string bytes, null terminated (object names, function names, filepaths...)
+# data pointer table (always multiples of 4 in size, never needs padding)
+	4 bytes table length
+	# table
+		4 bytes label offset
+		4 bytes data absolute pointer
+# labels (always multiples of 4 in size, has null padding if necessary)
+	2 bytes (* ) (always 4-aligned, padding never needed)
+	# label bytes, null terminated
+
+
+
+
+
+root files seem to load strings using  0x00002400 0x(offset to string from footer)
+
+in script files...
+
+0x000039000
+0x00001d000
+?
+
+
+	1400
+1401 3200
+0000 2F00
+1810 f7ff
+0810 f7ff
+0100 2200
+0200 0400
+
+	3f00
+0000 3900
+0000 3900
+
+33-2
+
+	d005
+0600 9e00
+7302 1d00
+a900 8300
+0000 1d00
+2800 1d00
+0000 1d00
+ffff fdff
+1601 8300
+2e00 1d00
+2e00 1d00
+
+	4e02
+e20a 0000
+1601 1d00
+a900 1d00
+cf00 1d00
+0000 1d00
+0000 a000
+
+	5f02
+0000 3900
+0000 3900
+0000 3900
+0000 3900
+0000 3900
+0000 3900
+0000 3900
+0000 3900
+0000 3900
