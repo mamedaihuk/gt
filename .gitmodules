@@ -4,3 +4,6 @@
 [submodule "utils/SDATTool"]
 	path = utils/SDATTool
 	url = https://github.com/froggestspirit/SDATTool.git
+[submodule "utils/ghost-treader"]
+	path = utils/ghost-treader
+	url = https://github.com/CrazyMLC/ghost-treader.git
