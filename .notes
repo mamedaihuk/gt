@@ -33,13 +33,25 @@ cpac_2d.bin are backgrounds.
 cpac_3d.bin are sprites.
 
 
-# Dant on CPACs // worked on the Russian translation
+# Dant on CPACs // worked on the Russian translation	;us
 > Cpacs are basically containers for several huge containers. And those smaller
 > containers contain files compressed with LZ11. So first you have to extract
 > containers from Cpac and then extract files from them.
 > 
-> Cpac2d contains 5 containers, while Cpac3d contains 4. Not so long ago | sent
+> Cpac2d contains 5 containers, while Cpac3d contains 4. Not so long ago I sent
 > you the image that showed what each one of them contains.
+-- IMG --------------------------------------
+cpac2d_001.bin (Unused Fonts)
+cpac2d_002.bin (Tile Mapped Logos & Credits)
+cpac2d_003.bin (Animations)
+cpac2d_004.bin (Backgrounds)
+cpac2d_005.bin (Empty)
+
+cpac3d_000.bin (Buttons, Sprites, Bubbles)
+cpac3d_001.bin (Empty)
+cpac3d_002.bin (Unknown bfe. files)
+cpac3d_003.bin (bws. Animations)
+---------------------------------------------
 > 
 > As for the files, they are stored in several formats:
 > * GBA 2-bit
