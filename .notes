@@ -19,3 +19,38 @@ Colour can also be controlled.
 I assume there's more formatting options.
 
 No idea where font_info.imb is used
+
+
+All audio is in sound_data.sdat.
+All video is contained in the *.mods files.
+There are siginficant differences between H.264 and Mobiclip.
+
+All graphics are contained in the cpac*.bin
+
+
+# IIRC what Arcana said:
+cpac_2d.bin are backgrounds.
+cpac_3d.bin are sprites.
+
+
+# Dant on CPACs // worked on the Russian translation
+> Cpacs are basically containers for several huge containers. And those smaller
+> containers contain files compressed with LZ11. So first you have to extract
+> containers from Cpac and then extract files from them.
+> 
+> Cpac2d contains 5 containers, while Cpac3d contains 4. Not so long ago | sent
+> you the image that showed what each one of them contains.
+> 
+> As for the files, they are stored in several formats:
+> * GBA 2-bit
+> * GBA 4-bit
+> * GBA 8-bit
+> * A315 8-bit
+> * A513 8-bit
+> * Direct 16-bit
+> 
+> As I said, they are compressed with LZ11 and also have a header.  They also
+> contain palette in many, but not all cases.  Extracting Cpacs shouldn't be a
+> problem. The header is at the beginning and pretty simple.  The smaller
+> containers also have headers at the beginning and they are also fairly simple
+> to crack.

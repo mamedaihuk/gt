@@ -7,7 +7,7 @@
 NAME="munkki"
 PROG="mk"
 VERSION="0.1"
-ASSETS="./assets/"
+ASSETS="./assets"
 BASE="./baserom.nds"
 BUILD="./build"
 DATA="./data/"
@@ -15,7 +15,7 @@ OUT="./gt.nds"
 UTILS="./utils"
 LZSS="$UTILS/lzss"
 SDATTOOL="$UTILS/SDATTool/SDATTool/__main__.py"
-TREADER="$UTILS/src/ghost-treader"
+TREADER="$UTILS/ghost-treader"
 
 pre() {
 	if [ -z "baserom.nds" ]; then
@@ -30,7 +30,7 @@ pre() {
 			# echo "Unpacked $ROM"
 
 			make -C $LZSS >/dev/null
-			find $DATA/*/*.xml.lz | xargs $LZSS/lzss -d
+			find $DATA -type f -name "*.xml.lz" | xargs $LZSS/lzss -d
 
 			$SDATTOOL -o -u $DATA/sound_data.sdat $ASSETS/sound_data >/dev/null
 			# return 0
@@ -40,27 +40,44 @@ pre() {
 	fi
 }
 
-build () {
+post () {
 	text
 	sdat
+	src
+	# repack
 }
 
 text () {
 	# Encode text
 	find $ASSETS -type f -name "*.xml" | xargs $LZSS/lzss -e
-	repack
+	# repack
 }
 
 sdat () {
 	$SDATTOOL -ns -b $ASSETS/sound_data.sdat $ASSETS/sound_data >/dev/null
-	repack
+	# repack
 }
 
+src () {
+	make -C src
+}
+
+# Kinda borked at the moment
 repack() {
-	ndstool -c $OUT -9 $BUILD/arm9.bin -9i $BUILD/arm9i.bin \
-	-7 $BUILD/arm7.bin -7i $BUILD/arm7i.bin -y9 $BUILD/y9.bin \
-	-y7 $BUILD/y7.bin -d $BUILD/data -y $BUILD/overlay \
-	-t $BUILD/banner.bin -h $BUILD/header.bin -o $BUILD/banner.bmp
+	ndstool \
+	-c $OUT \
+	-9 $BUILD/arm9.bin \
+	-9i $BUILD/arm9i.bin \
+	-7 $BUILD/arm7.bin \
+	-7i $BUILD/arm7i.bin \
+	-y9 $BUILD/y9.bin \
+	-y7 $BUILD/y7.bin \
+	-d $BUILD/data \
+	-y $BUILD/overlay \
+	-t $BUILD/banner.bin \
+	-h $BUILD/header.bin \
+	-o $BUILD/banner.bmp \
+	-g BGTE 08 GHOSTTRICK-E $VERSION
 }
 
 clean() {
@@ -69,7 +86,7 @@ clean() {
 }
 
 help() {
-	printf "$PROG - $NAME $VERSION, build system for gt
+	printf "$PROG - $NAME (gt $VERSION), build system for gt
 		\rusage: \033[1m"$PROG"\033[0m [options] \033[4m"target"\033[0m
 
 		\r\033[1m"Options"\033[0m:
@@ -80,6 +97,7 @@ help() {
 		\r  pre		unpack the ROM and extract its assets
 		\r  post	\tbuild and repack the ROM
 		\r    sdat	repack the sound data
+		\r    src	\trepack the binaries
 		\r    text	repack the text data
 		\r  clean	\tremove all generated files and directories\n"
 }
@@ -97,7 +115,7 @@ while [ ! $# -eq 0 ]
 		--help | -h )
 			help
 			;;
-		--force | -f )
+		--force | -f ) #Improve
 			clean
 			main
 			;;
@@ -105,8 +123,7 @@ while [ ! $# -eq 0 ]
 			pre
 			;;
 		post )
-			build
-			repack
+			post
 			;;
 		clean )
 			clean
@@ -116,6 +133,9 @@ while [ ! $# -eq 0 ]
 			;;
 		text )
 			text
+			;;
+		src )
+			src
 			;;
 		esac
 	shift
