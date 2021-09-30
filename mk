@@ -15,7 +15,7 @@ OUT="./gt.nds"
 UTILS="./utils"
 LZSS="$UTILS/lzss"
 SDATTOOL="$UTILS/SDATTool/SDATTool/__main__.py"
-TREADER="$UTILS/ghost-treader"
+TREADER="$UTILS/ghost-treader -c -s"
 
 pre() {
 	if [ -z "baserom.nds" ]; then
