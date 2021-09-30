@@ -11,7 +11,7 @@ Trick modifiable.
 * [ndstool](https://github.com/devkitPro/ndstool)
 
 Copy the base ROM to the root of the project as `baserom.nds`.
-Run `./munkki`.
+Run `./mk`.
 
 This will do everything; unpacking, building, repacking. If you would like to
 do only just one of said instructions, see the section below.
