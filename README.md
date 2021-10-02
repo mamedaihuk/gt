@@ -1,4 +1,6 @@
 # Ghost Trick: Phantom Detective RE
+<a href="https://kiwiirc.com/client/irc.gbatemp.net/?nick=user%7C?#gt" alt="GBATemp #gt"><img src="https://img.shields.io/badge/irc.GBATemp.net-%23gt-brightgreen.svg"></a>
+
 This is an attempt to reproduce the source code and make the assets for Ghost
 Trick modifiable.
 
@@ -23,3 +25,7 @@ do only just one of said instructions, see the section below.
 	* `src` - repack the binaries
 	* `text` - repack the text data
 * `clean` - remove all generated files and directories
+
+## Contact
+Issues, patches, or anything else may be sent to `leocoogan@tutanota.com` (me!).
+Feel free to stop by on the GBATemp IRC chan, `irc.gbatemp.net` `#gt`.
