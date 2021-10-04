@@ -7,3 +7,6 @@
 [submodule "utils/ghost-treader"]
 	path = utils/ghost-treader
 	url = https://github.com/CrazyMLC/ghost-treader.git
+[submodule "utils/lzss"]
+	path = utils/lzss
+	url = https://github.com/fmlatghor/lzss.git
