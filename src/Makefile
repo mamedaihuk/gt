@@ -6,8 +6,7 @@ endif
 
 NAME=gt
 OBJ=${NAME}.o
-PREFIX=arm-none-eabi
-CC=${PREFIX}-gcc
+CC=arm-none-eabi-gcc
 CFILES=*.c
 CFLAGS=${CLIBS} -g -Wall -Ofast -march=armv5te -mtune=arm946e-s -fomit-frame-pointer -ffast-math -mthumb -mthumb-interwork -DARM9
 CLIBS=-I${DEVKITPRO}/libnds/include
