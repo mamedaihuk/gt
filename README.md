@@ -10,6 +10,7 @@ Trick modifiable.
 * [DASH](http://gondor.apana.org.au/~herbert/dash)
 * [GNU Make](https://www.gnu.org/software/make)
 * [Python](https://www.python.org)
+* [lzss](https://github.com/fmlatghor/lzss)
 * [ndstool](https://github.com/devkitPro/ndstool)
 
 Copy the base ROM to the root of the project as `baserom.nds`.

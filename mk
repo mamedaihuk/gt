@@ -13,7 +13,6 @@ BUILD="./build"
 DATA="./data/"
 OUT="./gt.nds"
 UTILS="./utils"
-LZSS="$UTILS/lzss"
 SDATTOOL="$UTILS/SDATTool/SDATTool/__main__.py"
 TREADER="$UTILS/ghost-treader -c -s"
 
@@ -29,8 +28,7 @@ pre() {
 			ndstool -x $BASE -d $DATA -o $DATA/banner.bmp >/dev/null
 			# echo "Unpacked $ROM"
 
-			make -C $LZSS >/dev/null
-			find $DATA -type f -name "*.xml.lz" | xargs $LZSS/lzss -d
+			find $DATA -type f -name "*.xml.lz" | xargs lzss -d
 
 			$SDATTOOL -o -u $DATA/sound_data.sdat $ASSETS/sound_data >/dev/null
 			# return 0
@@ -49,7 +47,7 @@ post () {
 
 text () {
 	# Encode text
-	find $ASSETS -type f -name "*.xml" | xargs $LZSS/lzss -e
+	find $ASSETS -type f -name "*.xml" | xargs lzss -e
 	# repack
 }
 
@@ -82,7 +80,6 @@ repack() {
 
 clean() {
 	rm -rf $DATA $ASSETS $BUILD $OUT
-	make clean -C $LZSS >/dev/null
 }
 
 help() {
